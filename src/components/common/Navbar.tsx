@@ -44,8 +44,8 @@ export const Navbar = () => {
     () => [
       authMenuItems,
       {
-        link: "/notification",
-        label: "Notification",
+        link: "/notifications",
+        label: "Notifications",
         icon: <FaBell />,
         className: "fill-sky-500",
       },
@@ -68,7 +68,7 @@ export const Navbar = () => {
         className: "fill-orange-500",
       },
     ],
-    []
+    [authMenuItems]
   );
 
   return (

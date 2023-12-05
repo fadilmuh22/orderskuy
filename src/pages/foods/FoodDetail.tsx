@@ -1,11 +1,13 @@
-import { friedRice } from "@/api/types";
+import { mockFoods } from "@/api/types";
 import { IconProvider } from "@/components/common/IconProvider";
 import { Button, Image, Input, Link } from "@nextui-org/react";
 import { FaChevronLeft } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 
 export const FoodDetailPage = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id = "" } = useParams<{ id: string }>();
+
+  const food = mockFoods.find((food) => food.id === parseInt(id));
 
   return (
     <div className="flex flex-col gap-6 p-4" key={id}>
@@ -30,19 +32,21 @@ export const FoodDetailPage = () => {
         <p className="text-xs font-bold">Detail</p>
       </div>
 
-      <Image src={friedRice.image} width="100%" height="240" />
+      <Image src={food?.image} width="100%" height="240" />
 
       <div className="flex flex-col gap-2">
-        <p>Name: {friedRice.name}</p>
-        <p>Price: Rp {friedRice.price.toLocaleString()}</p>
-        <p>Points: +{friedRice.points} Point(s)</p>
+        <p>Name: {food?.name}</p>
+        <p>Price: Rp {food?.price.toLocaleString()}</p>
+        <p>Points: +{food?.points} Point(s)</p>
       </div>
 
-      <Input label="Quantity" />
-      <Input label="Note" placeholder="Add your notes, e.g. Extra spicy" />
-      <Button color="success" variant="shadow">
-        Add to Cart
-      </Button>
+      <div className="flex flex-col gap-6">
+        <Input label="Quantity" type="number" />
+        <Input label="Note" placeholder="Add your notes, e.g. Extra spicy" />
+        <Button color="success" variant="shadow">
+          Add to Cart
+        </Button>
+      </div>
 
       <div></div>
       <div></div>

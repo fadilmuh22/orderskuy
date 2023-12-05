@@ -1,10 +1,8 @@
-import { friedRice } from "@/api/types";
-import { DividerWithChild } from "@/components/common/DividerWithChild";
-import { FoodCard } from "@/components/common/FoodCard";
 import { IconProvider } from "@/components/common/IconProvider";
-import { TripleDots } from "@/components/common/TripleDots";
 import { Button, Input } from "@nextui-org/react";
 import { FaSearch } from "react-icons/fa";
+import { FoodCategoriesGrid } from "@/components/foods/FoodCategoriesGrid";
+import { mockFoods } from "@/api/types";
 
 export const FoodsPage = () => {
   return (
@@ -33,22 +31,7 @@ export const FoodsPage = () => {
         </Button>
       </div>
 
-      <DividerWithChild>
-        <TripleDots variant="light" />
-      </DividerWithChild>
-
-      <div className="flex flex-col justify-center gap-6">
-        <h1 className="text-2xl font-bold text-center text-zinc-500">
-          Nasi Goreng
-        </h1>
-        <div className="grid grid-cols-2 gap-3">
-          {Array(10)
-            .fill(friedRice)
-            .map((food, index) => (
-              <FoodCard key={index} food={food} />
-            ))}
-        </div>
-      </div>
+      <FoodCategoriesGrid foods={mockFoods} categories={[]} />
     </div>
   );
 };
