@@ -1,6 +1,7 @@
 import { AuthBaseCard } from "@/components/auth/AuthBaseCard";
 import { Button, Input } from "@nextui-org/react";
 import { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 export const NewPasswordPage = () => {
@@ -24,7 +25,9 @@ export const NewPasswordPage = () => {
               onClick={() => {
                 setIsVisible((prev) => !prev);
               }}
-            ></button>
+            >
+              {isVisible ? <FaEye /> : <FaEyeSlash />}
+            </button>
           }
           type={isVisible ? "text" : "password"}
           className="max-w-xs"
@@ -39,7 +42,9 @@ export const NewPasswordPage = () => {
               onClick={() => {
                 setIsVisibleConfirm((prev) => !prev);
               }}
-            ></button>
+            >
+              {isVisible ? <FaEye /> : <FaEyeSlash />}
+            </button>
           }
           type={isVisibleConfirm ? "text" : "password"}
           className="max-w-xs"
@@ -47,9 +52,11 @@ export const NewPasswordPage = () => {
       </div>
 
       <div className="flex flex-col gap-3">
-        <Button color="primary" variant="solid" fullWidth>
-          Reset Password
-        </Button>
+        <Link to="/login">
+          <Button color="primary" variant="solid" fullWidth>
+            Reset Password
+          </Button>
+        </Link>
       </div>
 
       <div className="flex flex-row justify-center">

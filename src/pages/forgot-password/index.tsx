@@ -23,9 +23,11 @@ export const ForgotPasswordPage = () => {
 
       <div className="flex flex-col gap-3">
         <Input label="OTP" variant="bordered" />
-        <Button color="primary" variant="solid">
-          Reset Password
-        </Button>
+        <Link to="/new-password">
+          <Button color="primary" variant="solid" fullWidth>
+            Reset Password
+          </Button>
+        </Link>
       </div>
 
       <div className="flex flex-row justify-center">

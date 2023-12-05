@@ -4,6 +4,7 @@ import { AuthOptionalDivider } from "@/components/auth/AuthOptionalDivider";
 import { AuthGoogleButton } from "@/components/auth/AuthGoogleButton";
 import { Link } from "react-router-dom";
 import { AuthBaseCard } from "@/components/auth/AuthBaseCard";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export const LoginPage = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -11,11 +12,10 @@ export const LoginPage = () => {
   return (
     <AuthBaseCard title="Log In to Your Account">
       <div className="flex flex-col gap-3">
-        <Input label="Username or email" />
+        <Input label="Username or email" variant="bordered" />
         <Input
           label="Password"
           variant="bordered"
-          placeholder="Enter your password"
           endContent={
             <button
               className="focus:outline-none"
@@ -23,7 +23,9 @@ export const LoginPage = () => {
               onClick={() => {
                 setIsVisible((prev) => !prev);
               }}
-            ></button>
+            >
+              {isVisible ? <FaEye /> : <FaEyeSlash />}
+            </button>
           }
           type={isVisible ? "text" : "password"}
           className="max-w-xs"

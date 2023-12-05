@@ -4,6 +4,7 @@ import { AuthOptionalDivider } from "@/components/auth/AuthOptionalDivider";
 import { AuthGoogleButton } from "@/components/auth/AuthGoogleButton";
 import { Link } from "react-router-dom";
 import { AuthBaseCard } from "@/components/auth/AuthBaseCard";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export const RegisterPage = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -24,7 +25,9 @@ export const RegisterPage = () => {
               onClick={() => {
                 setIsVisible((prev) => !prev);
               }}
-            ></button>
+            >
+              {isVisible ? <FaEye /> : <FaEyeSlash />}
+            </button>
           }
           type={isVisible ? "text" : "password"}
           className="max-w-xs"
@@ -39,7 +42,9 @@ export const RegisterPage = () => {
               onClick={() => {
                 setIsVisibleConfirm((prev) => !prev);
               }}
-            ></button>
+            >
+              {isVisible ? <FaEye /> : <FaEyeSlash />}
+            </button>
           }
           type={isVisibleConfirm ? "text" : "password"}
           className="max-w-xs"
