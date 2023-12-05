@@ -1,5 +1,5 @@
 import { Food } from "@/api/types";
-import { Button, Chip } from "@nextui-org/react";
+import { Button, Chip, Link } from "@nextui-org/react";
 import classNames from "classnames";
 import { FunctionComponent } from "react";
 
@@ -32,7 +32,12 @@ export const FoodCard: FunctionComponent<Props> = ({ food }) => {
       </div>
 
       <div></div>
-      <Button className="text-white" variant="bordered">
+      <Button
+        as={Link}
+        href={"/foods/" + food.id}
+        className="text-white"
+        variant="bordered"
+      >
         Order
       </Button>
     </div>

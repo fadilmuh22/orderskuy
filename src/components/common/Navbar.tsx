@@ -93,6 +93,9 @@ export const Navbar = () => {
               fullWidth
               as={Link}
               href={item.link}
+              onPress={() => {
+                setIsMenuOpen(false);
+              }}
             >
               {item.label}
             </Button>

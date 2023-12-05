@@ -1,4 +1,4 @@
-import { Button } from "@nextui-org/react";
+import { Button, Link } from "@nextui-org/react";
 import classNames from "classnames";
 
 const bgUrl =
@@ -22,7 +22,7 @@ export const Banner = () => {
       </div>
 
       <div className="h-full">
-        <Button color="danger" variant="shadow">
+        <Button color="danger" variant="shadow" as={Link} href="/foods">
           Browse for Foods
         </Button>
       </div>

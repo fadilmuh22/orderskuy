@@ -9,6 +9,8 @@ import { ForgotPasswordPage } from "../pages/forgot-password";
 import { NewPasswordPage } from "../pages/new-password";
 import { PageLayout } from "@/components/layout/PageLayout";
 import App from "@/App";
+import { FoodsPage } from "@/pages/foods";
+import { FoodDetailPage } from "@/pages/foods/FoodDetail";
 
 type Route = Record<string, RouteObject>;
 
@@ -41,6 +43,14 @@ const routes: Route = {
     path: "/orders",
     element: <OrdersPage />,
   },
+  foods: {
+    path: "/foods",
+    element: <FoodsPage />,
+  },
+  foodDetail: {
+    path: "/foods/:id",
+    element: <FoodDetailPage />,
+  },
 };
 
 export const router = createHashRouter([
@@ -58,7 +68,13 @@ export const router = createHashRouter([
       },
       {
         element: <PageLayout />,
-        children: [routes.home, routes.cart, routes.order],
+        children: [
+          routes.home,
+          routes.cart,
+          routes.order,
+          routes.foods,
+          routes.foodDetail,
+        ],
       },
     ],
   },
