@@ -17,7 +17,7 @@ export const ForgotPasswordPage = () => {
       </div>
 
       <div className="flex flex-row justify-center">
-        <p className="text-red-500 text-center">60 Second(s) left</p>
+        <p className="text-center text-red-500">60 Second(s) left</p>
       </div>
 
       <div className="flex flex-col gap-3">

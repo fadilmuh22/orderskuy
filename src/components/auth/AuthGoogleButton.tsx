@@ -8,7 +8,7 @@ export const AuthGoogleButton: FunctionComponent<ButtonProps> = (props) => {
     <Button
       {...props}
       isIconOnly
-      className="bg-white rounded-full shadow-lg p-2"
+      className="p-2 bg-white rounded-full shadow-lg"
     >
       <IconProvider>
         <FcGoogle />

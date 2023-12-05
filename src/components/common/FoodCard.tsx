@@ -12,23 +12,26 @@ export const FoodCard: FunctionComponent<Props> = ({ food }) => {
     <div
       className={classNames(
         "flex flex-col items-center justify-between",
-        `bg-cover bg-center bg-[url('${food.image}')]`,
+        "bg-cover bg-center",
         "relative rounded-xl max-w-full min-h-[240px]",
         "pb-4"
       )}
+      style={{
+        backgroundImage: `url('${food.image}')`,
+      }}
     >
       <div className="absolute inset-0 rounded-xl bg-gradient-to-b from-orange-950 via-black/0 via-50% to-green-950"></div>
 
-      <div className="absolute top-0 rounded-tl-xl flex flex-col rounded-tr-xl w-full">
-        <div className="flex flex-row items-center justify-between px-4 py-2 border border-solid border-white/20 bg-black/20">
-          <p className="text-white text-center font-bold">
+      <div className="absolute top-0 flex flex-col w-full rounded-tl-xl rounded-tr-xl">
+        <div className="flex flex-row items-center justify-between px-4 py-2 border border-solid rounded-tl-xl rounded-tr-xl border-white/20 bg-black/20">
+          <p className="font-bold text-center text-white">
             Rp {food.price.toLocaleString()}
           </p>
-          <Chip className="bg-white/20 text-white font-bold">
+          <Chip className="font-bold text-white bg-white/20">
             +{food.points} P
           </Chip>
         </div>
-        <p className="pt-4 text-center text-white font-bold">{food.name}</p>
+        <p className="pt-4 font-bold text-center text-white">{food.name}</p>
       </div>
 
       <div></div>

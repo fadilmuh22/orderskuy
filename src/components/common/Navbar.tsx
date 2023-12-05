@@ -23,14 +23,26 @@ import { IconProvider } from "./IconProvider";
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const authMenuItems = useMemo(() => {
+    const isAuth = false;
+    return isAuth
+      ? {
+          link: "/account",
+          label: "Account",
+          icon: <FaUser />,
+          className: "fill-emerald-500",
+        }
+      : {
+          link: "/login",
+          label: "Login",
+          icon: <FaUser />,
+          className: "fill-emerald-500",
+        };
+  }, []);
+
   const menuItems = useMemo(
     () => [
-      {
-        link: "/login",
-        label: "Account",
-        icon: <FaUser />,
-        className: "fill-emerald-500",
-      },
+      authMenuItems,
       {
         link: "/notification",
         label: "Notification",
@@ -60,7 +72,11 @@ export const Navbar = () => {
   );
 
   return (
-    <NextUINavbar height="3rem" onMenuOpenChange={setIsMenuOpen}>
+    <NextUINavbar
+      isMenuOpen={isMenuOpen}
+      onMenuOpenChange={setIsMenuOpen}
+      height="3rem"
+    >
       <NavbarContent>
         <NavbarBrand>
           <RestoLogo />
@@ -69,7 +85,6 @@ export const Navbar = () => {
 
       <NavbarContent justify="end">
         <NavbarMenuToggle
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           className="sm:hidden "
           icon={
             <IconProvider size="24">

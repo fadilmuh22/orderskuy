@@ -5,7 +5,7 @@ export const DividerWithChild: FunctionComponent<PropsWithChildren> = ({
   children,
 }) => {
   return (
-    <div className="flex flex-row justify-evenly items-center gap-2 overflow-hidden w-full">
+    <div className="flex flex-row items-center w-full gap-2 overflow-hidden justify-evenly">
       <Divider />
       <div className="min-w-fit">{children}</div>
       <Divider />

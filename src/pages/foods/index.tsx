@@ -8,7 +8,7 @@ import { FaSearch } from "react-icons/fa";
 
 export const FoodsPage = () => {
   return (
-    <div className="p-4 flex flex-col gap-6">
+    <div className="flex flex-col gap-6 p-4">
       <div className="flex flex-col items-center gap-2 text-zinc-500">
         <h1 className="text-2xl">Available</h1>
         <p className="text-xs font-bold">Menu</p>
@@ -37,8 +37,8 @@ export const FoodsPage = () => {
         <TripleDots variant="light" />
       </DividerWithChild>
 
-      <div className="flex flex-col gap-6 justify-center">
-        <h1 className="text-2xl font-bold text-zinc-500 text-center">
+      <div className="flex flex-col justify-center gap-6">
+        <h1 className="text-2xl font-bold text-center text-zinc-500">
           Nasi Goreng
         </h1>
         <div className="grid grid-cols-2 gap-3">

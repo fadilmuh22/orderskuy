@@ -12,7 +12,7 @@ export const InputPassword: FunctionComponent<Props> = (props) => {
       variant="bordered"
       endContent={
         <button
-          className="focus:outline-none h-full flex items-center"
+          className="flex items-center h-full focus:outline-none"
           type="button"
           onClick={() => {
             setIsVisible((prev) => !prev);

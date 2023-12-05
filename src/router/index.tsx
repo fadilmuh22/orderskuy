@@ -11,6 +11,8 @@ import { PageLayout } from "@/components/layout/PageLayout";
 import App from "@/App";
 import { FoodsPage } from "@/pages/foods";
 import { FoodDetailPage } from "@/pages/foods/FoodDetail";
+import { NotificationsPage } from "@/pages/notifications";
+import { RewardsPage } from "@/pages/rewards";
 
 const routes = {
   home: {
@@ -49,6 +51,14 @@ const routes = {
     path: "/foods/:id",
     element: <FoodDetailPage />,
   },
+  notifications: {
+    path: "/notifications",
+    element: <NotificationsPage />,
+  },
+  rewards: {
+    path: "/rewards",
+    element: <RewardsPage />,
+  },
 };
 
 export const router = createHashRouter([
@@ -72,6 +82,8 @@ export const router = createHashRouter([
           routes.order,
           routes.foods,
           routes.foodDetail,
+          routes.notifications,
+          routes.rewards,
         ],
       },
     ],

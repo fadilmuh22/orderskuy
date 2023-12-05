@@ -9,14 +9,17 @@ export const Banner = () => {
     <div
       className={classNames(
         "flex flex-col items-center justify-center",
-        "relative rounded-xl max-w-full min-w-[348px] min-h-[246px]",
-        `bg-cover bg-[url('${bgUrl}')]`
+        "relative rounded-xl max-w-full min-w-[348px] min-h-[246px]"
       )}
+      style={{
+        backgroundSize: "cover",
+        backgroundImage: `url('${bgUrl}')`,
+      }}
     >
       <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-orange-500 to-green-500 opacity-80"></div>
 
-      <div className="absolute top-0 rounded-tl-xl rounded-tr-xl w-full p-2 bg-black/20">
-        <p className="text-white text-center font-bold">
+      <div className="absolute top-0 w-full p-2 rounded-tl-xl rounded-tr-xl bg-black/20">
+        <p className="font-bold text-center text-white">
           Order your favorite dishes now!
         </p>
       </div>

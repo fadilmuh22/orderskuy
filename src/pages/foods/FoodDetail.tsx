@@ -1,6 +1,6 @@
 import { friedRice } from "@/api/types";
 import { IconProvider } from "@/components/common/IconProvider";
-import { Button, Image, Input } from "@nextui-org/react";
+import { Button, Image, Input, Link } from "@nextui-org/react";
 import { FaChevronLeft } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 
@@ -8,9 +8,11 @@ export const FoodDetailPage = () => {
   const { id } = useParams<{ id: string }>();
 
   return (
-    <div className="p-4 flex flex-col gap-6" key={id}>
+    <div className="flex flex-col gap-6 p-4" key={id}>
       <div className="flex flex-row">
         <Button
+          as={Link}
+          href=".."
           color="danger"
           variant="flat"
           startContent={

@@ -38,7 +38,7 @@ export const SignUpPage = () => {
       <div></div>
       <div></div>
 
-      <div className="flex flex-row justify-center items-center ">
+      <div className="flex flex-row items-center justify-center ">
         <p>Already have an account?</p>
 
         <Button as={Link} href="/login" color="primary" variant="light">
