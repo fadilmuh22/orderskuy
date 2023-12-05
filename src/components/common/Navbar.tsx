@@ -7,7 +7,7 @@ import {
   FaTrophy,
   FaUser,
 } from "react-icons/fa";
-import { RestoLogo } from "../common/RestoLogo";
+import { RestoLogo } from "./RestoLogo";
 import {
   Navbar as NextUINavbar,
   NavbarContent,
@@ -18,7 +18,7 @@ import {
   Button,
 } from "@nextui-org/react";
 import { Link } from "react-router-dom";
-import { IconProvider } from "../common/IconProvider";
+import { IconProvider } from "./IconProvider";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
