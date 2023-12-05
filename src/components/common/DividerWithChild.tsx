@@ -1,15 +1,13 @@
 import { Divider } from "@nextui-org/react";
-import { FunctionComponent } from "react";
+import { FunctionComponent, PropsWithChildren } from "react";
 
-export const AuthOptionalDivider: FunctionComponent<{ text: string }> = ({
-  text,
+export const DividerWithChild: FunctionComponent<PropsWithChildren> = ({
+  children,
 }) => {
   return (
     <div className="flex flex-row justify-evenly items-center gap-2 overflow-hidden w-full">
       <Divider />
-      <div className="min-w-fit">
-        <p>{text}</p>
-      </div>
+      <div className="min-w-fit">{children}</div>
       <Divider />
     </div>
   );

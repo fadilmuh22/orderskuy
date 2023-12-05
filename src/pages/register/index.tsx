@@ -1,8 +1,8 @@
 import { Button, Input, Link } from "@nextui-org/react";
-import { AuthOptionalDivider } from "@/components/auth/AuthOptionalDivider";
 import { AuthGoogleButton } from "@/components/auth/AuthGoogleButton";
 import { AuthBaseCard } from "@/components/auth/AuthBaseCard";
 import { InputPassword } from "@/components/common/InputPassword";
+import { DividerWithChild } from "@/components/common/DividerWithChild";
 
 export const RegisterPage = () => {
   return (
@@ -26,7 +26,9 @@ export const RegisterPage = () => {
       </div>
 
       <div className="flex flex-row">
-        <AuthOptionalDivider text="or sign up with" />
+        <DividerWithChild>
+          <p>or sign up with</p>
+        </DividerWithChild>
       </div>
 
       <div className="flex flex-row justify-center">

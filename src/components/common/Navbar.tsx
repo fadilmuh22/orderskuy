@@ -26,7 +26,7 @@ export const Navbar = () => {
   const menuItems = useMemo(
     () => [
       {
-        link: "/account",
+        link: "/login",
         label: "Account",
         icon: <FaUser />,
         className: "fill-emerald-500",

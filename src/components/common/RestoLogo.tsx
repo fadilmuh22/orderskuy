@@ -2,11 +2,11 @@ import { Link } from "@nextui-org/react";
 import { FunctionComponent } from "react";
 
 type Props = {
-  variant?: "white" | "green";
+  variant?: "light" | "green";
 };
 
 export const RestoLogo: FunctionComponent<Props> = ({ variant }) => {
-  const color = variant === "white" ? "text-white" : "text-emerald-500";
+  const color = variant === "light" ? "text-white" : "text-emerald-500";
 
   return (
     <div className="mr-1 cursor-pointer">
