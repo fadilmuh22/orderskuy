@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   FaBars,
   FaBell,
@@ -16,45 +16,48 @@ import {
   NavbarMenu,
   NavbarMenuItem,
   Button,
+  Link,
 } from "@nextui-org/react";
-import { Link } from "react-router-dom";
 import { IconProvider } from "./IconProvider";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const menuItems = [
-    {
-      link: "/account",
-      label: "Account",
-      icon: <FaUser />,
-      className: "fill-emerald-500",
-    },
-    {
-      link: "/notification",
-      label: "Notification",
-      icon: <FaBell />,
-      className: "fill-sky-500",
-    },
-    {
-      link: "/rewards",
-      label: "Rewards",
-      icon: <FaTrophy />,
-      className: "fill-fuchsia-500",
-    },
-    {
-      link: "/orders",
-      label: "Orders",
-      icon: <FaClipboardList />,
-      className: "fill-yellow-500",
-    },
-    {
-      link: "/cart",
-      label: "Cart",
-      icon: <FaShoppingCart />,
-      className: "fill-orange-500",
-    },
-  ];
+  const menuItems = useMemo(
+    () => [
+      {
+        link: "/account",
+        label: "Account",
+        icon: <FaUser />,
+        className: "fill-emerald-500",
+      },
+      {
+        link: "/notification",
+        label: "Notification",
+        icon: <FaBell />,
+        className: "fill-sky-500",
+      },
+      {
+        link: "/rewards",
+        label: "Rewards",
+        icon: <FaTrophy />,
+        className: "fill-fuchsia-500",
+      },
+      {
+        link: "/orders",
+        label: "Orders",
+        icon: <FaClipboardList />,
+        className: "fill-yellow-500",
+      },
+      {
+        link: "/cart",
+        label: "Cart",
+        icon: <FaShoppingCart />,
+        className: "fill-orange-500",
+      },
+    ],
+    []
+  );
 
   return (
     <NextUINavbar height="3rem" onMenuOpenChange={setIsMenuOpen}>
@@ -78,7 +81,7 @@ export const Navbar = () => {
 
       <NavbarMenu>
         {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`} as={Link} to={item.link}>
+          <NavbarMenuItem key={`${item}-${index}`}>
             <Button
               className={"justify-start"}
               startContent={
@@ -88,6 +91,8 @@ export const Navbar = () => {
               }
               variant="light"
               fullWidth
+              as={Link}
+              href={item.link}
             >
               {item.label}
             </Button>

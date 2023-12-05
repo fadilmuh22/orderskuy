@@ -1,7 +1,6 @@
-import { Button, Input } from "@nextui-org/react";
+import { Button, Input, Link } from "@nextui-org/react";
 import { AuthOptionalDivider } from "@/components/auth/AuthOptionalDivider";
 import { AuthGoogleButton } from "@/components/auth/AuthGoogleButton";
-import { Link } from "react-router-dom";
 import { AuthBaseCard } from "@/components/auth/AuthBaseCard";
 import { InputPassword } from "@/components/common/InputPassword";
 
@@ -40,11 +39,9 @@ export const RegisterPage = () => {
       <div className="flex flex-row justify-center items-center ">
         <p>Already have an account?</p>
 
-        <Link to="/login">
-          <Button color="primary" variant="light">
-            Log In
-          </Button>
-        </Link>
+        <Button as={Link} href="/login" color="primary" variant="light">
+          Log In
+        </Button>
       </div>
     </AuthBaseCard>
   );

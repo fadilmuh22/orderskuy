@@ -3,11 +3,12 @@ import { HomePage } from "../pages/home";
 import { LoginPage } from "../pages/login";
 import { RegisterPage } from "../pages/register";
 import { CartPage } from "../pages/cart";
-import { OrderPage } from "../pages/order";
+import { OrdersPage } from "../pages/orders";
 import { AuthLayout } from "../components/layout/AuthLayout";
 import { ForgotPasswordPage } from "../pages/forgot-password";
 import { NewPasswordPage } from "../pages/new-password";
 import { PageLayout } from "@/components/layout/PageLayout";
+import App from "@/App";
 
 type Route = Record<string, RouteObject>;
 
@@ -37,23 +38,28 @@ const routes: Route = {
     element: <CartPage />,
   },
   order: {
-    path: "/order",
-    element: <OrderPage />,
+    path: "/orders",
+    element: <OrdersPage />,
   },
 };
 
 export const router = createHashRouter([
   {
-    element: <AuthLayout />,
+    element: <App />,
     children: [
-      routes.login,
-      routes.register,
-      routes.forgotPassword,
-      routes.newPassword,
+      {
+        element: <AuthLayout />,
+        children: [
+          routes.login,
+          routes.register,
+          routes.forgotPassword,
+          routes.newPassword,
+        ],
+      },
+      {
+        element: <PageLayout />,
+        children: [routes.home, routes.cart, routes.order],
+      },
     ],
-  },
-  {
-    element: <PageLayout />,
-    children: [routes.home, routes.cart, routes.order],
   },
 ]);

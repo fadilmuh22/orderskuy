@@ -1,11 +1,17 @@
 import { NextUIProvider } from "@nextui-org/react";
-import { RouterProvider } from "react-router-dom";
-import { router } from "./router";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { Outlet, useNavigate } from "react-router-dom";
+
+const queryClient = new QueryClient();
 
 function App() {
+  const navigate = useNavigate();
+
   return (
-    <NextUIProvider>
-      <RouterProvider router={router} />
+    <NextUIProvider navigate={navigate}>
+      <QueryClientProvider client={queryClient}>
+        <Outlet />
+      </QueryClientProvider>
     </NextUIProvider>
   );
 }

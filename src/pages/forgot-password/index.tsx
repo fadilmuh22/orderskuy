@@ -1,6 +1,5 @@
 import { AuthBaseCard } from "@/components/auth/AuthBaseCard";
-import { Button, Input } from "@nextui-org/react";
-import { Link } from "react-router-dom";
+import { Button, Input, Link } from "@nextui-org/react";
 
 export const ForgotPasswordPage = () => {
   return (
@@ -23,19 +22,21 @@ export const ForgotPasswordPage = () => {
 
       <div className="flex flex-col gap-3">
         <Input label="OTP" variant="bordered" />
-        <Link to="/new-password">
-          <Button color="primary" variant="solid" fullWidth>
-            Reset Password
-          </Button>
-        </Link>
+        <Button
+          as={Link}
+          href="/new-password"
+          color="primary"
+          variant="solid"
+          fullWidth
+        >
+          Reset Password
+        </Button>
       </div>
 
       <div className="flex flex-row justify-center">
-        <Link to="/login">
-          <Button color="primary" variant="light">
-            I Remember My Password
-          </Button>
-        </Link>
+        <Button as={Link} href="/login" color="primary" variant="light">
+          I Remember My Password
+        </Button>
       </div>
     </AuthBaseCard>
   );

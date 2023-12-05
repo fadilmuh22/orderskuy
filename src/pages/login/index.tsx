@@ -1,7 +1,6 @@
-import { Button, Input } from "@nextui-org/react";
+import { Button, Input, Link } from "@nextui-org/react";
 import { AuthOptionalDivider } from "@/components/auth/AuthOptionalDivider";
 import { AuthGoogleButton } from "@/components/auth/AuthGoogleButton";
-import { Link } from "react-router-dom";
 import { AuthBaseCard } from "@/components/auth/AuthBaseCard";
 import { InputPassword } from "@/components/common/InputPassword";
 
@@ -19,11 +18,14 @@ export const LoginPage = () => {
 
       <div className="flex flex-col gap-3">
         <div className="flex flex-row justify-end">
-          <Link to="/forgot-password">
-            <Button color="primary" variant="light">
-              Forgot Password?
-            </Button>
-          </Link>
+          <Button
+            as={Link}
+            href="/forgot-password"
+            color="primary"
+            variant="light"
+          >
+            Forgot Password?
+          </Button>
         </div>
         <Button color="primary" variant="solid" fullWidth>
           Login
@@ -44,11 +46,9 @@ export const LoginPage = () => {
       <div className="flex flex-row justify-center items-center ">
         <p>Don't Have Any Acoount?</p>
 
-        <Link to="/register">
-          <Button color="primary" variant="light">
-            Sign Up
-          </Button>
-        </Link>
+        <Button as={Link} href="/register" color="primary" variant="light">
+          Sign Up
+        </Button>
       </div>
     </AuthBaseCard>
   );

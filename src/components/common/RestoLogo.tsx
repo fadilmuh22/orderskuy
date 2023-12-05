@@ -1,5 +1,5 @@
+import { Link } from "@nextui-org/react";
 import { FunctionComponent } from "react";
-import { Link } from "react-router-dom";
 
 type Props = {
   variant?: "white" | "green";
@@ -10,7 +10,7 @@ export const RestoLogo: FunctionComponent<Props> = ({ variant }) => {
 
   return (
     <div className="mr-1 cursor-pointer">
-      <Link to="/">
+      <Link href="/">
         <h1 className={color}>
           <strong>Resto</strong>Order
         </h1>
