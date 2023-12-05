@@ -1,15 +1,13 @@
-import { FunctionComponent, PropsWithChildren } from "react";
 import { Navbar } from "../Navigation/Navbar";
 import { Copyright } from "../common/Copyright";
+import { Outlet } from "react-router-dom";
 
-export const PageLayout: FunctionComponent<PropsWithChildren> = ({
-  children,
-}) => {
+export const PageLayout = () => {
   return (
-    <>
+    <div>
       <Navbar />
-      {children}
+      <Outlet />
       <Copyright />
-    </>
+    </div>
   );
 };

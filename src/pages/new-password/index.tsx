@@ -1,17 +1,18 @@
+import { AuthBaseCard } from "@/components/auth/AuthBaseCard";
 import { Button, Input } from "@nextui-org/react";
 import { useState } from "react";
-import { AuthOptionalDivider } from "@/components/auth/AuthOptionalDivider";
-import { AuthGoogleButton } from "@/components/auth/AuthGoogleButton";
 import { Link } from "react-router-dom";
-import { AuthBaseCard } from "@/components/auth/AuthBaseCard";
 
-export const LoginPage = () => {
+export const NewPasswordPage = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isVisibleConfirm, setIsVisibleConfirm] = useState(false);
 
   return (
-    <AuthBaseCard title="Log In to Your Account">
+    <AuthBaseCard title="">
       <div className="flex flex-col gap-3">
-        <Input label="Username or email" />
+        <div>
+          <p className="text-center">Set a New Password</p>
+        </div>
         <Input
           label="Password"
           variant="bordered"
@@ -28,38 +29,33 @@ export const LoginPage = () => {
           type={isVisible ? "text" : "password"}
           className="max-w-xs"
         />
+        <Input
+          label="Confirm Password"
+          variant="bordered"
+          endContent={
+            <button
+              className="focus:outline-none"
+              type="button"
+              onClick={() => {
+                setIsVisibleConfirm((prev) => !prev);
+              }}
+            ></button>
+          }
+          type={isVisibleConfirm ? "text" : "password"}
+          className="max-w-xs"
+        />
       </div>
 
       <div className="flex flex-col gap-3">
-        <div className="flex flex-row justify-end">
-          <Link to="/forgot-password">
-            <Button color="primary" variant="light">
-              Forgot Password?
-            </Button>
-          </Link>
-        </div>
         <Button color="primary" variant="solid" fullWidth>
-          Login
+          Reset Password
         </Button>
       </div>
 
-      <div className="flex flex-row">
-        <AuthOptionalDivider text="or log in with" />
-      </div>
-
       <div className="flex flex-row justify-center">
-        <AuthGoogleButton />
-      </div>
-
-      <div></div>
-      <div></div>
-
-      <div className="flex flex-row justify-center items-center ">
-        <p>Don't Have Any Acoount?</p>
-
-        <Link to="/register">
+        <Link to="/login">
           <Button color="primary" variant="light">
-            Sign Up
+            I Remember My Password
           </Button>
         </Link>
       </div>

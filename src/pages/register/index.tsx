@@ -5,17 +5,18 @@ import { AuthGoogleButton } from "@/components/auth/AuthGoogleButton";
 import { Link } from "react-router-dom";
 import { AuthBaseCard } from "@/components/auth/AuthBaseCard";
 
-export const LoginPage = () => {
+export const RegisterPage = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isVisibleConfirm, setIsVisibleConfirm] = useState(false);
 
   return (
-    <AuthBaseCard title="Log In to Your Account">
+    <AuthBaseCard title="Create New Account">
       <div className="flex flex-col gap-3">
-        <Input label="Username or email" />
+        <Input label="Username" variant="bordered" />
+        <Input label="Email" variant="bordered" />
         <Input
           label="Password"
           variant="bordered"
-          placeholder="Enter your password"
           endContent={
             <button
               className="focus:outline-none"
@@ -28,23 +29,33 @@ export const LoginPage = () => {
           type={isVisible ? "text" : "password"}
           className="max-w-xs"
         />
+        <Input
+          label="Confirm Password"
+          variant="bordered"
+          endContent={
+            <button
+              className="focus:outline-none"
+              type="button"
+              onClick={() => {
+                setIsVisibleConfirm((prev) => !prev);
+              }}
+            ></button>
+          }
+          type={isVisibleConfirm ? "text" : "password"}
+          className="max-w-xs"
+        />
+
+        <Input label="Phone Number (optional)" variant="bordered" />
       </div>
 
       <div className="flex flex-col gap-3">
-        <div className="flex flex-row justify-end">
-          <Link to="/forgot-password">
-            <Button color="primary" variant="light">
-              Forgot Password?
-            </Button>
-          </Link>
-        </div>
         <Button color="primary" variant="solid" fullWidth>
-          Login
+          Sign Up
         </Button>
       </div>
 
       <div className="flex flex-row">
-        <AuthOptionalDivider text="or log in with" />
+        <AuthOptionalDivider text="or sign up with" />
       </div>
 
       <div className="flex flex-row justify-center">
@@ -55,11 +66,11 @@ export const LoginPage = () => {
       <div></div>
 
       <div className="flex flex-row justify-center items-center ">
-        <p>Don't Have Any Acoount?</p>
+        <p>Already have an account?</p>
 
-        <Link to="/register">
+        <Link to="/login">
           <Button color="primary" variant="light">
-            Sign Up
+            Log In
           </Button>
         </Link>
       </div>

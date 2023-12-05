@@ -10,6 +10,11 @@ export default {
   theme: {
     extend: {},
   },
+  variants: {
+    extend: {
+      backgroundOpacity: ["active"],
+    },
+  },
   darkMode: "class",
   plugins: [nextui()],
 };
