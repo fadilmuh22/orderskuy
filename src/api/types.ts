@@ -6,6 +6,30 @@ export type Food = {
   image: string;
 };
 
+export type User = {
+  id: string;
+};
+
+export type Cart = {
+  id: string;
+};
+
+export type Order = {
+  id: string;
+};
+
+export type LoginPayload = {
+  username: string;
+  password: string;
+};
+
+export type RegisterPayload = {
+  username: string;
+  email: string;
+  password: string;
+  phoneNumber?: string;
+};
+
 export const friedRice: Food = {
   id: 1,
   name: "Nasi Goreng Italy",

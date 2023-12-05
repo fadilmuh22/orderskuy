@@ -4,7 +4,7 @@ import { AuthBaseCard } from "@/components/auth/AuthBaseCard";
 import { InputPassword } from "@/components/common/InputPassword";
 import { DividerWithChild } from "@/components/common/DividerWithChild";
 
-export const RegisterPage = () => {
+export const SignUpPage = () => {
   return (
     <AuthBaseCard title="Create New Account">
       <div className="flex flex-col gap-3">

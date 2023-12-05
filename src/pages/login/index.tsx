@@ -48,7 +48,7 @@ export const LoginPage = () => {
       <div className="flex flex-row justify-center items-center ">
         <p>Don't Have Any Acoount?</p>
 
-        <Button as={Link} href="/register" color="primary" variant="light">
+        <Button as={Link} href="/signup" color="primary" variant="light">
           Sign Up
         </Button>
       </div>

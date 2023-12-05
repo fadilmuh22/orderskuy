@@ -1,7 +1,7 @@
-import { RouteObject, createHashRouter } from "react-router-dom";
+import { createHashRouter } from "react-router-dom";
 import { HomePage } from "../pages/home";
 import { LoginPage } from "../pages/login";
-import { RegisterPage } from "../pages/register";
+import { SignUpPage } from "../pages/signup";
 import { CartPage } from "../pages/cart";
 import { OrdersPage } from "../pages/orders";
 import { AuthLayout } from "../components/layout/AuthLayout";
@@ -12,20 +12,18 @@ import App from "@/App";
 import { FoodsPage } from "@/pages/foods";
 import { FoodDetailPage } from "@/pages/foods/FoodDetail";
 
-type Route = Record<string, RouteObject>;
-
-const routes: Route = {
+const routes = {
   home: {
     path: "/",
     element: <HomePage />,
   },
-  register: {
-    path: "/register",
-    element: <RegisterPage />,
-  },
   login: {
     path: "/login",
     element: <LoginPage />,
+  },
+  signup: {
+    path: "/signup",
+    element: <SignUpPage />,
   },
   forgotPassword: {
     path: "/forgot-password",
@@ -61,7 +59,7 @@ export const router = createHashRouter([
         element: <AuthLayout />,
         children: [
           routes.login,
-          routes.register,
+          routes.signup,
           routes.forgotPassword,
           routes.newPassword,
         ],
