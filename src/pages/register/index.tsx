@@ -1,56 +1,23 @@
 import { Button, Input } from "@nextui-org/react";
-import { useState } from "react";
 import { AuthOptionalDivider } from "@/components/auth/AuthOptionalDivider";
 import { AuthGoogleButton } from "@/components/auth/AuthGoogleButton";
 import { Link } from "react-router-dom";
 import { AuthBaseCard } from "@/components/auth/AuthBaseCard";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { InputPassword } from "@/components/common/InputPassword";
 
 export const RegisterPage = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [isVisibleConfirm, setIsVisibleConfirm] = useState(false);
-
   return (
     <AuthBaseCard title="Create New Account">
       <div className="flex flex-col gap-3">
-        <Input label="Username" variant="bordered" />
-        <Input label="Email" variant="bordered" />
+        <Input label="Username" variant="bordered" className="max-w-xs" />
+        <Input label="Email" variant="bordered" className="max-w-xs" />
+        <InputPassword label="Password" />
+        <InputPassword label="Confirm Password" />
         <Input
-          label="Password"
+          label="Phone Number (optional)"
           variant="bordered"
-          endContent={
-            <button
-              className="focus:outline-none"
-              type="button"
-              onClick={() => {
-                setIsVisible((prev) => !prev);
-              }}
-            >
-              {isVisible ? <FaEye /> : <FaEyeSlash />}
-            </button>
-          }
-          type={isVisible ? "text" : "password"}
           className="max-w-xs"
         />
-        <Input
-          label="Confirm Password"
-          variant="bordered"
-          endContent={
-            <button
-              className="focus:outline-none"
-              type="button"
-              onClick={() => {
-                setIsVisibleConfirm((prev) => !prev);
-              }}
-            >
-              {isVisible ? <FaEye /> : <FaEyeSlash />}
-            </button>
-          }
-          type={isVisibleConfirm ? "text" : "password"}
-          className="max-w-xs"
-        />
-
-        <Input label="Phone Number (optional)" variant="bordered" />
       </div>
 
       <div className="flex flex-col gap-3">

@@ -1,35 +1,20 @@
 import { Button, Input } from "@nextui-org/react";
-import { useState } from "react";
 import { AuthOptionalDivider } from "@/components/auth/AuthOptionalDivider";
 import { AuthGoogleButton } from "@/components/auth/AuthGoogleButton";
 import { Link } from "react-router-dom";
 import { AuthBaseCard } from "@/components/auth/AuthBaseCard";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { InputPassword } from "@/components/common/InputPassword";
 
 export const LoginPage = () => {
-  const [isVisible, setIsVisible] = useState(false);
-
   return (
     <AuthBaseCard title="Log In to Your Account">
       <div className="flex flex-col gap-3">
-        <Input label="Username or email" variant="bordered" />
         <Input
-          label="Password"
+          label="Username or email"
           variant="bordered"
-          endContent={
-            <button
-              className="focus:outline-none"
-              type="button"
-              onClick={() => {
-                setIsVisible((prev) => !prev);
-              }}
-            >
-              {isVisible ? <FaEye /> : <FaEyeSlash />}
-            </button>
-          }
-          type={isVisible ? "text" : "password"}
           className="max-w-xs"
         />
+        <InputPassword label="Password" />
       </div>
 
       <div className="flex flex-col gap-3">
