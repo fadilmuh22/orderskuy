@@ -14,7 +14,7 @@ export type RegisterPayload = {
   email: string;
   password: string;
   password_confirmation: string;
-  phone_number?: string;
+  phone?: string;
 };
 
 export type AuthResponse = {

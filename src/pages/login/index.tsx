@@ -52,7 +52,7 @@ export const LoginPage = () => {
           </Button>
         </div>
         <Button
-          isDisabled={isPending}
+          isLoading={isPending}
           color="primary"
           variant="solid"
           fullWidth

@@ -54,11 +54,11 @@ export const SignUpPage = () => {
           label="Phone Number (optional)"
           variant="bordered"
           className="max-w-xs"
-          {...register("phone_number", { required: true })}
+          {...register("phone", { required: true })}
         />
 
         <Button
-          isDisabled={isPending}
+          isLoading={isPending}
           color="primary"
           variant="solid"
           fullWidth
