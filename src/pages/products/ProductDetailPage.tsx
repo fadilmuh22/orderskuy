@@ -1,5 +1,5 @@
 import { useProduct, useProductToCart } from "@/api/products";
-import { ProductToCardPayload } from "@/api/products/types";
+import { ProductToCartPayload } from "@/api/products/types";
 import { IconProvider } from "@/components/common/IconProvider";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { Button, Image, Input, Link } from "@nextui-org/react";
@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 export const ProductDetailPage = () => {
   const { id = "" } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { handleSubmit, register, reset } = useForm<ProductToCardPayload>();
+  const { handleSubmit, register, reset } = useForm<ProductToCartPayload>();
 
   const { data: productData, isLoading: isProductLoading } = useProduct(id);
   const { mutateAsync: addToCart, isPending: isAddToCartPending } =
@@ -36,7 +36,7 @@ export const ProductDetailPage = () => {
     [product]
   );
 
-  const onAddToCart = async (payload: ProductToCardPayload) => {
+  const onAddToCart = async (payload: ProductToCartPayload) => {
     if (!product) return;
     await addToCart({
       product_id: parseInt(id),

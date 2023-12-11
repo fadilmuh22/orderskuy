@@ -31,13 +31,13 @@ export type CategoryPaginationParams = PaginationBaseParams & {
   with_products?: boolean;
 };
 
-export type ProductToCardPayload = {
+export type ProductToCartPayload = {
   product_id: number;
   qty: number;
   notes: string;
 };
 
-export interface ProductToCardResponse {
+export interface ProductToCartResponse {
   created_on: EdOn;
   modified_on: EdOn;
   deleted: number;

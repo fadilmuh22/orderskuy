@@ -11,8 +11,8 @@ import {
   CategoryPaginationParams,
   Product,
   ProductPaginationParams,
-  ProductToCardPayload,
-  ProductToCardResponse,
+  ProductToCartPayload,
+  ProductToCartResponse,
 } from "./types";
 import { usePagination } from "../pagination";
 import { PaginationBase, PaginationBaseParams } from "../pagination/types";
@@ -77,15 +77,15 @@ export const useProduct = (
 
 export const useProductToCart = (
   mutationOptions?: UseMutationOptions<
-    ProductToCardResponse,
+    ProductToCartResponse,
     unknown,
-    ProductToCardPayload
+    ProductToCartPayload
   >
 ) => {
   const queryClient = useQueryClient();
-  return useMutation<ProductToCardResponse, unknown, ProductToCardPayload>({
+  return useMutation<ProductToCartResponse, unknown, ProductToCartPayload>({
     mutationFn: (payload) =>
-      apiRequest<ProductToCardResponse, ProductToCardPayload>({
+      apiRequest<ProductToCartResponse, ProductToCartPayload>({
         url: `${BASE_URL}/add_to_cart`,
         method: "post",
         body: payload,
