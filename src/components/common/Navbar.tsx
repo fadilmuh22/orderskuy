@@ -21,11 +21,13 @@ import {
 } from "@nextui-org/react";
 import { IconProvider } from "./IconProvider";
 import { useAuth } from "@/api/auth";
+import { useTableNumber } from "@/providers/TableNumberProvider";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const { data: auth, isLoading } = useAuth();
+  const { tableNumber } = useTableNumber();
 
   const authMenuItems = useMemo(() => {
     if (isLoading) {
@@ -90,7 +92,9 @@ export const Navbar = () => {
       </NavbarContent>
 
       <NavbarContent justify="end">
-        <Chip>Chip</Chip>
+        {tableNumber !== "" && (
+          <Chip className="text-sm text-zinc-500">Table {tableNumber}</Chip>
+        )}
         <NavbarMenuToggle
           className="sm:hidden "
           icon={

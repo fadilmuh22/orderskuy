@@ -20,9 +20,3 @@ export type RegisterPayload = {
 export type AuthResponse = {
   isAuthenticated: boolean;
 };
-
-export type UpdateUserPassword = {
-  old_password: string;
-  new_password: string;
-  new_password_confirmation: string;
-};
