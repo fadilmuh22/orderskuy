@@ -1,17 +1,17 @@
 import { Button, Input, Link } from "@nextui-org/react";
 import { AuthGoogleButton } from "@/components/auth/AuthGoogleButton";
 import { AuthBaseCard } from "@/components/auth/AuthBaseCard";
-import { InputPassword } from "@/components/common/InputPassword";
+import { InputPassword } from "@/components/form/InputPassword";
 import { DividerWithChild } from "@/components/common/DividerWithChild";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useLogin } from "@/api/auth";
-import { LoginPayload } from "@/api/types";
 import { toast } from "react-toastify";
+import { LoginPayload } from "@/api/auth/types";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
-  const { handleSubmit } = useForm<LoginPayload>();
+  const { handleSubmit, register } = useForm<LoginPayload>();
 
   const { mutateAsync: login, isPending } = useLogin({
     onSuccess: () => {
@@ -31,8 +31,12 @@ export const LoginPage = () => {
           label="Username or email"
           variant="bordered"
           className="max-w-xs"
+          {...register("phone", { required: true })}
         />
-        <InputPassword label="Password" />
+        <InputPassword
+          label="Password"
+          {...register("password", { required: true })}
+        />
 
         <div className="flex flex-row justify-end">
           <Button
@@ -49,6 +53,7 @@ export const LoginPage = () => {
           color="primary"
           variant="solid"
           fullWidth
+          type="submit"
         >
           Login
         </Button>

@@ -1,16 +1,13 @@
 import { IconProvider } from "@/components/common/IconProvider";
 import { Button, Input } from "@nextui-org/react";
 import { FaSearch } from "react-icons/fa";
-import { FoodCategoriesGrid } from "@/components/foods/FoodCategoriesGrid";
-import { mockFoods } from "@/api/types";
+import { FoodCategoriesGrid } from "@/components/products/ProductCategoriesGrid";
+import { SectionHeader } from "@/components/common/SectionHeader";
 
-export const FoodsPage = () => {
+export const ProductsPage = () => {
   return (
     <div className="flex flex-col gap-6 p-4">
-      <div className="flex flex-col items-center gap-2 text-zinc-500">
-        <h1 className="text-2xl">Available</h1>
-        <p className="text-xs font-bold">Menu</p>
-      </div>
+      <SectionHeader title="Available" subtitle="Menu" />
 
       <div className="flex flex-col gap-2">
         <div className="flex flex-row gap-2">
@@ -31,7 +28,7 @@ export const FoodsPage = () => {
         </Button>
       </div>
 
-      <FoodCategoriesGrid foods={mockFoods} categories={[]} />
+      <FoodCategoriesGrid selectedCategories={[]} />
     </div>
   );
 };

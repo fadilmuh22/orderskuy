@@ -1,17 +1,17 @@
 import { Button, Input, Link } from "@nextui-org/react";
 import { AuthGoogleButton } from "@/components/auth/AuthGoogleButton";
 import { AuthBaseCard } from "@/components/auth/AuthBaseCard";
-import { InputPassword } from "@/components/common/InputPassword";
+import { InputPassword } from "@/components/form/InputPassword";
 import { DividerWithChild } from "@/components/common/DividerWithChild";
 import { useForm } from "react-hook-form";
-import { RegisterPayload } from "@/api/types";
 import { useSignUp } from "@/api/auth";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { RegisterPayload } from "@/api/auth/types";
 
 export const SignUpPage = () => {
   const navigate = useNavigate();
-  const { handleSubmit } = useForm<RegisterPayload>();
+  const { handleSubmit, register } = useForm<RegisterPayload>();
 
   const { mutateAsync: signUp, isPending } = useSignUp({
     onSuccess: () => {
@@ -27,14 +27,31 @@ export const SignUpPage = () => {
   return (
     <AuthBaseCard title="Create New Account">
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
-        <Input label="Username" variant="bordered" className="max-w-xs" />
-        <Input label="Email" variant="bordered" className="max-w-xs" />
-        <InputPassword label="Password" />
-        <InputPassword label="Confirm Password" />
+        <Input
+          label="Username"
+          variant="bordered"
+          className="max-w-xs"
+          {...register("username", { required: true })}
+        />
+        <Input
+          label="Email"
+          variant="bordered"
+          className="max-w-xs"
+          {...register("email", { required: true })}
+        />
+        <InputPassword
+          label="Password"
+          {...register("password", { required: true })}
+        />
+        <InputPassword
+          label="Confirm Password"
+          {...register("password_confirmation", { required: true })}
+        />
         <Input
           label="Phone Number (optional)"
           variant="bordered"
           className="max-w-xs"
+          {...register("phone_number", { required: true })}
         />
 
         <Button
@@ -42,6 +59,7 @@ export const SignUpPage = () => {
           color="primary"
           variant="solid"
           fullWidth
+          type="submit"
         >
           Sign Up
         </Button>

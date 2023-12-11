@@ -9,12 +9,14 @@ import { ForgotPasswordPage } from "../pages/forgot-password";
 import { NewPasswordPage } from "../pages/new-password";
 import { PageLayout } from "@/components/layout/PageLayout";
 import App from "@/App";
-import { FoodsPage } from "@/pages/foods";
-import { FoodDetailPage } from "@/pages/foods/FoodDetail";
+import { ProductsPage } from "@/pages/products";
+import { ProductDetailPage } from "@/pages/products/ProductDetailPage";
 import { NotificationsPage } from "@/pages/notifications";
 import { RewardsPage } from "@/pages/rewards";
 import { AuthGuard } from "@/components/auth/AuthGuard";
 import { AccountPage } from "@/pages/account";
+import { OrderDetailPage } from "@/pages/orders/OrderDetailPage";
+import { AssignTablePage } from "@/pages/assign-table";
 
 const routes = {
   home: {
@@ -45,21 +47,29 @@ const routes = {
       </AuthGuard>
     ),
   },
+  assignTable: {
+    path: "/assign-table",
+    element: <AssignTablePage />,
+  },
   cart: {
     path: "/cart",
     element: <CartPage />,
   },
-  order: {
+  orders: {
     path: "/orders",
     element: <OrdersPage />,
   },
-  foods: {
-    path: "/foods",
-    element: <FoodsPage />,
+  orderDetail: {
+    path: "/orders/:id",
+    element: <OrderDetailPage />,
   },
-  foodDetail: {
-    path: "/foods/:id",
-    element: <FoodDetailPage />,
+  products: {
+    path: "/products",
+    element: <ProductsPage />,
+  },
+  productDetail: {
+    path: "/products/:id",
+    element: <ProductDetailPage />,
   },
   notifications: {
     path: "/notifications",
@@ -87,11 +97,14 @@ export const router = createHashRouter([
       {
         element: <PageLayout />,
         children: [
+          routes.account,
+          routes.assignTable,
           routes.home,
           routes.cart,
-          routes.order,
-          routes.foods,
-          routes.foodDetail,
+          routes.orders,
+          routes.orderDetail,
+          routes.products,
+          routes.productDetail,
           routes.notifications,
           routes.rewards,
         ],

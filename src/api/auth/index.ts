@@ -3,8 +3,14 @@ import {
   useMutation,
   useQuery,
 } from "@tanstack/react-query";
-import { LoginPayload, LoginResponse, RegisterPayload, User } from "./types";
-import { apiRequest } from "./base";
+import { apiRequest } from "..";
+import {
+  LoginResponse,
+  LoginPayload,
+  RegisterPayload,
+  AuthResponse,
+} from "./types";
+import { User } from "../users/types";
 
 const BASE_URL = "/user";
 
@@ -13,11 +19,11 @@ export const useLogin = (
 ) => {
   return useMutation<LoginResponse, unknown, LoginPayload>({
     mutationFn: (payload) =>
-      apiRequest<LoginResponse, LoginPayload>(
-        `${BASE_URL}/signin`,
-        "post",
-        payload
-      ),
+      apiRequest<LoginResponse, LoginPayload>({
+        url: `${BASE_URL}/signin`,
+        method: "post",
+        body: payload,
+      }),
     ...mutationOptions,
     onSuccess: (data, payload, params) => {
       localStorage.setItem("jwtToken", data.token);
@@ -31,7 +37,11 @@ export const useSignUp = (
 ) => {
   return useMutation<User, unknown, RegisterPayload>({
     mutationFn: (payload) =>
-      apiRequest<User, RegisterPayload>(`${BASE_URL}/signup`, "post", payload),
+      apiRequest<User, RegisterPayload>({
+        url: `${BASE_URL}/signup`,
+        method: "post",
+        body: payload,
+      }),
     ...mutationOptions,
   });
 };
@@ -48,10 +58,6 @@ export const useLogout = (
     },
     ...mutationOptions,
   });
-};
-
-export type AuthResponse = {
-  isAuthenticated: boolean;
 };
 
 export const useAuth = () => {

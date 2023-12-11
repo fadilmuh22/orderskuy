@@ -17,15 +17,21 @@ import {
   NavbarMenuItem,
   Button,
   Link,
+  Chip,
 } from "@nextui-org/react";
 import { IconProvider } from "./IconProvider";
+import { useAuth } from "@/api/auth";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const { data: auth, isLoading } = useAuth();
+
   const authMenuItems = useMemo(() => {
-    const isAuth = false;
-    return isAuth
+    if (isLoading) {
+      return {};
+    }
+    return auth?.isAuthenticated
       ? {
           link: "/account",
           label: "Account",
@@ -38,7 +44,7 @@ export const Navbar = () => {
           icon: <FaUser />,
           className: "fill-emerald-500",
         };
-  }, []);
+  }, [auth?.isAuthenticated, isLoading]);
 
   const menuItems = useMemo(
     () => [
@@ -84,6 +90,7 @@ export const Navbar = () => {
       </NavbarContent>
 
       <NavbarContent justify="end">
+        <Chip>Chip</Chip>
         <NavbarMenuToggle
           className="sm:hidden "
           icon={

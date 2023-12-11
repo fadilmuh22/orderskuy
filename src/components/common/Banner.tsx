@@ -25,7 +25,7 @@ export const Banner = () => {
       </div>
 
       <div className="h-full">
-        <Button color="danger" variant="shadow" as={Link} href="/foods">
+        <Button color="danger" variant="shadow" as={Link} href="/products">
           Browse for Foods
         </Button>
       </div>

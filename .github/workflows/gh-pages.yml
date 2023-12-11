@@ -27,7 +27,7 @@ jobs:
       - name: Build production bundle
         uses: borales/actions-yarn@v4
         env:
-          VITE_API_URL: ${{ vars.VITE_API_URL }}
+          VITE_BASE_API_URL: ${{ vars.VITE_BASE_API_URL }}
         with:
           cmd: build
 

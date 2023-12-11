@@ -1,30 +1,47 @@
-import { useSignUp } from "@/api/auth";
-import { RegisterPayload } from "@/api/types";
-import { useUser } from "@/api/users";
+import { UpdateUserPassword, User } from "@/api/users/types";
+import {
+  useUpdateUser,
+  useUpdateUserPassword,
+  useUser,
+} from "@/api/users/users";
 import { IconProvider } from "@/components/common/IconProvider";
-import { InputPassword } from "@/components/common/InputPassword";
-import { Button, Input, Link } from "@nextui-org/react";
+import { InputPassword } from "@/components/form/InputPassword";
+import { SectionHeader } from "@/components/common/SectionHeader";
+import { Button, Card, Divider, Input, Link } from "@nextui-org/react";
 import { FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
 import { FaChevronLeft, FaSignOutAlt } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export const AccountPage: FunctionComponent = () => {
-  const { data: user, isLoading } = useUser();
+  const { data: user, isLoading: isUserLoading } = useUser();
 
-  const navigate = useNavigate();
-  const { handleSubmit } = useForm<RegisterPayload>();
+  const { handleSubmit: handleSubmitUser } = useForm<User>({
+    defaultValues: user,
+  });
+  const { handleSubmit: handleSubmitPassword } = useForm<UpdateUserPassword>();
 
-  const { mutateAsync: signUp, isPending } = useSignUp({
+  const { mutateAsync: updateUser, isPending: isUpdateUserPending } =
+    useUpdateUser({
+      onSuccess: () => {
+        toast.success("Profile updated successfully");
+      },
+    });
+  const {
+    mutateAsync: updateUserPassword,
+    isPending: isUpdateUserPasswordPending,
+  } = useUpdateUserPassword({
     onSuccess: () => {
-      toast.success("Sign up successfully!, please login");
-      navigate("/login");
+      toast.success("Profile updated successfully");
     },
   });
 
-  const onSubmit = async (payload: RegisterPayload) => {
-    await signUp(payload);
+  const onSubmitUpdateUser = async (payload: User) => {
+    await updateUser(payload);
+  };
+
+  const onSubmitUpdatePassword = async (payload: UpdateUserPassword) => {
+    await updateUserPassword(payload);
   };
 
   return (
@@ -45,17 +62,34 @@ export const AccountPage: FunctionComponent = () => {
         </Button>
       </div>
 
-      <div className="flex flex-col items-center gap-2 text-zinc-500">
-        <h1 className="text-2xl">My</h1>
-        <p className="text-xs font-bold">Account</p>
-      </div>
+      <SectionHeader title="My" subtitle="Account" />
 
-      {isLoading && <p>Loading...</p>}
+      {isUserLoading && <p>Loading...</p>}
 
-      {user && (
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
-          <Input label="Username" variant="bordered" className="max-w-xs" />
-          <Input label="Email" variant="bordered" className="max-w-xs" />
+      <Card className="flex flex-col gap-4 px-4 py-6">
+        <div className="flex flex-col gap-2">
+          <div className="flex flex-row justify-start">
+            <p className="text-sm font-bold">Information</p>
+          </div>
+          <Divider />
+        </div>
+
+        <form
+          onSubmit={handleSubmitUser(onSubmitUpdateUser)}
+          className="flex flex-col gap-3"
+        >
+          <Input
+            label="Username"
+            variant="bordered"
+            className="max-w-xs"
+            required
+          />
+          <Input
+            label="Email"
+            variant="bordered"
+            className="max-w-xs"
+            required
+          />
           <Input
             label="Phone Number (optional)"
             variant="bordered"
@@ -63,7 +97,7 @@ export const AccountPage: FunctionComponent = () => {
           />
 
           <Button
-            isDisabled={isPending}
+            isDisabled={isUpdateUserPending || isUserLoading}
             color="primary"
             variant="shadow"
             fullWidth
@@ -71,16 +105,25 @@ export const AccountPage: FunctionComponent = () => {
             Update Profile
           </Button>
         </form>
-      )}
+      </Card>
 
-      {user && (
-        <form className="flex flex-col gap-3">
-          <InputPassword label="Password" />
-          <InputPassword label="New Password" />
-          <InputPassword label="Confirm Password" />
+      <Card className="flex flex-col gap-4 px-4 py-6">
+        <div className="flex flex-col gap-2">
+          <div className="flex flex-row justify-start">
+            <p className="text-sm font-bold">Information</p>
+          </div>
+          <Divider />
+        </div>
+        <form
+          className="flex flex-col gap-3"
+          onSubmit={handleSubmitPassword(onSubmitUpdatePassword)}
+        >
+          <InputPassword label="Password" required />
+          <InputPassword label="New Password" required />
+          <InputPassword label="Confirm Password" required />
 
           <Button
-            isDisabled={isPending}
+            isDisabled={isUpdateUserPasswordPending || isUserLoading}
             color="primary"
             variant="shadow"
             fullWidth
@@ -88,20 +131,22 @@ export const AccountPage: FunctionComponent = () => {
             Update Password
           </Button>
         </form>
-      )}
+      </Card>
 
-      <Button
-        isDisabled={isPending}
-        color="danger"
-        variant="shadow"
-        startContent={
-          <IconProvider color="white" size="24">
-            <FaSignOutAlt />
-          </IconProvider>
-        }
-      >
-        Logout
-      </Button>
+      <div className="flex flex-row justify-center">
+        <Button
+          isDisabled={isUpdateUserPending || isUpdateUserPasswordPending}
+          color="danger"
+          variant="shadow"
+          startContent={
+            <IconProvider color="white" size="24">
+              <FaSignOutAlt />
+            </IconProvider>
+          }
+        >
+          Logout
+        </Button>
+      </div>
 
       <div></div>
       <div></div>

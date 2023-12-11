@@ -1,5 +1,5 @@
 import { AuthBaseCard } from "@/components/auth/AuthBaseCard";
-import { InputPassword } from "@/components/common/InputPassword";
+import { InputPassword } from "@/components/form/InputPassword";
 import { Button, Link } from "@nextui-org/react";
 
 export const NewPasswordPage = () => {
