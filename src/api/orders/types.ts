@@ -39,6 +39,14 @@ export type OrderPayload = {
 };
 
 export interface OrderResponse {
+  transaction: OrderTransaction;
+  transaction_details: OderTransactionDetail[];
+}
+
+export interface OrderTransaction {
+  payment_type: string;
+  deleted: number;
+  id: number;
   tax: number;
   total: number;
   subtotal: number;
@@ -48,10 +56,9 @@ export interface OrderResponse {
   user_id: number;
   table_number: number;
   status: string;
-  transaction_details: OderResponseDetail[];
 }
 
-export interface OderResponseDetail {
+export interface OderTransactionDetail {
   merchant_id: string;
   user_id: number;
   trx_code: string;
@@ -62,4 +69,18 @@ export interface OderResponseDetail {
   subtotal: string;
   tax: string;
   total: string;
+}
+
+export enum TransactionStatus {
+  WAITING = "waiting",
+  UNPAID = "unpaid",
+  PAID = "paid",
+  cancelled = "cancelled",
+}
+
+export enum PaymentMethod {
+  CASH = "cash",
+  QRIS = "qris",
+  DEBIT = "debit",
+  POINT = "point",
 }

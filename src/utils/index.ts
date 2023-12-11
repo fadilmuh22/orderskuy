@@ -1,4 +1,4 @@
-import { TransactionStatus } from "@/api/types";
+import { TransactionStatus } from "@/api/orders/types";
 
 export const getTransactionStatusDetails = (
   status?: string

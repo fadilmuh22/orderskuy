@@ -1,30 +1,20 @@
-import { useOrders } from "@/api/orders";
-import { Transaction } from "@/api/orders/types";
+import { useOrder } from "@/api/orders";
 import { IconProvider } from "@/components/common/IconProvider";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { getTransactionStatusDetails } from "@/utils";
 import { Button, Card, Divider } from "@nextui-org/react";
 import classNames from "classnames";
-import { useMemo } from "react";
 import { FaSyncAlt } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 
 export const OrderDetailPage = () => {
   const { id = "" } = useParams<{ id: string }>();
   const {
-    data: orders,
+    data: order,
     isLoading: isOrderLoading,
     isFetching,
     refetch,
-  } = useOrders();
-
-  const order: Transaction | undefined = useMemo(() => {
-    if (id == "") return undefined;
-    return (
-      orders?.items.find((order) => order.id === parseInt(id)) ??
-      orders?.items[0]
-    );
-  }, [id, orders?.items]);
+  } = useOrder(parseInt(id));
 
   return (
     <div className="flex flex-col gap-6 p-4">
@@ -60,18 +50,18 @@ export const OrderDetailPage = () => {
           <Divider />
 
           <div>
-            <p className="font-bold">Info</p>
+            <p className="font-bold">Status</p>
           </div>
           <div className="flex flex-row justify-between">
+            <p className="font-bold">Order Confirmation</p>
             <p
               className={classNames(
-                "font-bold",
+                "capitalize",
                 getTransactionStatusDetails(order.status).color
               )}
             >
-              Order Confirmation
+              {order.status}
             </p>
-            <p className="capitalize">{order.status}</p>
           </div>
           <div className="flex flex-row justify-between">
             <p className="font-bold">Payment</p>

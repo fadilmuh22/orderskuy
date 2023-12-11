@@ -69,7 +69,7 @@ export const useOrder = (
       apiRequest<Transaction>({
         url: `${BASE_URL}/status`,
         method: "post",
-        params: { id },
+        body: { id },
       }),
     ...queryOptions,
     enabled: id !== 0,

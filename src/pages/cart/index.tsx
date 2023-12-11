@@ -18,7 +18,7 @@ export const CartPage = () => {
     useOrderFromCart({
       onSuccess: (data) => {
         toast.success("Order created successfully");
-        navigate(`/orders/${data.table_number}`);
+        navigate(`/orders/${data.transaction.id}`);
       },
     });
   const { mutateAsync: deleteCart, isPending: isDeleteCartPending } =
