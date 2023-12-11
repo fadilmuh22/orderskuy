@@ -2,6 +2,7 @@ import {
   UseMutationOptions,
   useMutation,
   useQuery,
+  useQueryClient,
 } from "@tanstack/react-query";
 import { apiRequest } from "..";
 import {
@@ -48,9 +49,11 @@ export const useSignUp = (
 };
 
 export const useLogout = (mutationOptions?: UseMutationOptions) => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: () => {
       return new Promise<void>((resolve) => {
+        queryClient.clear();
         localStorage.clear();
         resolve();
       });

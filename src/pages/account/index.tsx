@@ -14,10 +14,18 @@ import { FaChevronLeft, FaSignOutAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { InputText } from "@/components/form/InputText";
 import { useLogout } from "@/api/auth";
+import { useNavigate } from "react-router-dom";
 
 export const AccountPage: FunctionComponent = () => {
+  const navigate = useNavigate();
+
   const { data: user, isLoading: isUserLoading } = useUser();
-  const { mutateAsync: logout, isPending: isLogoutPending } = useLogout();
+  const { mutateAsync: logout, isPending: isLogoutPending } = useLogout({
+    onSuccess: () => {
+      toast.success("Logout successfully!");
+      navigate("/login");
+    },
+  });
 
   const { handleSubmit: handleSubmitUser, control: controlFormUser } =
     useForm<User>({
@@ -47,6 +55,10 @@ export const AccountPage: FunctionComponent = () => {
 
   const onSubmitUpdatePassword = async (payload: UpdateUserPassword) => {
     await updateUserPassword(payload);
+  };
+
+  const logoutUser = async () => {
+    await logout();
   };
 
   return (
@@ -155,9 +167,7 @@ export const AccountPage: FunctionComponent = () => {
 
       <div className="flex flex-row justify-center">
         <Button
-          onClick={async () => {
-            await logout();
-          }}
+          onClick={logoutUser}
           isLoading={isLogoutPending}
           isDisabled={isUpdateUserPending || isUpdateUserPasswordPending}
           color="danger"
