@@ -33,7 +33,7 @@ export const RewardCard: FunctionComponent<Props> = ({ reward }) => {
               "bg-success-50 text-success-500": reward.point >= 50,
             })}
           >
-            {reward.point} Points
+            {parseInt(reward.price).toLocaleString()} Points
           </div>
         </div>
         <div></div>

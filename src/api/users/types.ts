@@ -3,6 +3,8 @@ export type User = {
   username: string;
   email: string;
   phone: string;
+  current_points: number;
+  total_points: number;
 };
 
 export type UpdateUserPassword = {

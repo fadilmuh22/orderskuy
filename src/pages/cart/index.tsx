@@ -49,7 +49,7 @@ export const CartPage = () => {
     {
       header: "Price",
       accessorFn: (row) =>
-        `Rp ${parseInt(row["product.price"] ?? "0").toLocaleString()}`,
+        `Rp ${parseFloat(row["product.price"] ?? "0").toLocaleString()}`,
     },
     {
       header: "Del",

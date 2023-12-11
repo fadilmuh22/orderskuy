@@ -31,10 +31,10 @@ export const LoginPage = () => {
     <AuthBaseCard title="Log In to Your Account">
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
         <Input
-          label="Username or email"
+          label="Email or phone number"
           variant="bordered"
           className="max-w-xs"
-          {...register("phone", { required: true })}
+          {...register("phonemail", { required: true })}
         />
         <InputPassword
           label="Password"

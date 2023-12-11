@@ -31,7 +31,7 @@ export const ProductCard: FunctionComponent<Props> = ({ product }) => {
       <div className="absolute top-0 flex flex-col w-full rounded-tl-xl rounded-tr-xl">
         <div className="flex flex-row items-center justify-between px-4 py-2 border border-solid rounded-tl-xl rounded-tr-xl border-white/20 bg-black/20">
           <p className="text-xs font-bold text-white text-start">
-            Rp {product.price.toLocaleString()}
+            Rp {parseFloat(product.price).toLocaleString()}
           </p>
           <Chip className="font-bold text-white bg-white/20 text-[10px]">
             +{product.point} P

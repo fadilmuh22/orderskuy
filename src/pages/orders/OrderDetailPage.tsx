@@ -45,7 +45,7 @@ export const OrderDetailPage = () => {
           </div>
           <div className="flex flex-row justify-between">
             <p className="font-bold text-emerald-500">Total price</p>
-            <p>Rp {parseInt(order.total ?? "0").toLocaleString()}</p>
+            <p>Rp {parseFloat(order.total ?? "0").toLocaleString()}</p>
           </div>
           <Divider />
 

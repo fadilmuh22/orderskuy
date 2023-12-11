@@ -1,8 +1,8 @@
-import { useTopProducts } from "@/api/products";
+import { useRewardProducts } from "@/api/products";
 import { RewardCard } from "./RewardCard";
 
 export const RewardGrid = () => {
-  const { data: rewards, isLoading } = useTopProducts();
+  const { data: rewards, isLoading } = useRewardProducts();
 
   if (isLoading) {
     return <>Loading...</>;

@@ -22,7 +22,8 @@ export const OrdersPage = () => {
     },
     {
       header: "Total",
-      accessorFn: (row) => `Rp ${parseInt(row.total ?? "0").toLocaleString()}`,
+      accessorFn: (row) =>
+        `Rp ${parseFloat(row.total ?? "0").toLocaleString()}`,
     },
     {
       header: "Status",
