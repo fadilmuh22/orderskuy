@@ -11,11 +11,11 @@ export const usersKeys = {
   detail: (id: string) => [UsersQueryKeys.USER, id],
 };
 
-const BASE_URL = "/users";
+const BASE_URL = "/user";
 
-export const useUser = (id: string) => {
+export const useUser = () => {
   return useQuery<User>({
-    queryKey: usersKeys.detail(id),
-    queryFn: () => apiRequest<User>(`${BASE_URL}/${id}`, "get"),
+    queryKey: usersKeys.user,
+    queryFn: () => apiRequest<User>(`${BASE_URL}/me`, "get"),
   });
 };

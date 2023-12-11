@@ -3,20 +3,37 @@ import { AuthGoogleButton } from "@/components/auth/AuthGoogleButton";
 import { AuthBaseCard } from "@/components/auth/AuthBaseCard";
 import { InputPassword } from "@/components/common/InputPassword";
 import { DividerWithChild } from "@/components/common/DividerWithChild";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { useLogin } from "@/api/auth";
+import { LoginPayload } from "@/api/types";
+import { toast } from "react-toastify";
 
 export const LoginPage = () => {
+  const navigate = useNavigate();
+  const { handleSubmit } = useForm<LoginPayload>();
+
+  const { mutateAsync: login, isPending } = useLogin({
+    onSuccess: () => {
+      toast.success("Login successfully!");
+      navigate("/");
+    },
+  });
+
+  const onSubmit = async (payload: LoginPayload) => {
+    await login(payload);
+  };
+
   return (
     <AuthBaseCard title="Log In to Your Account">
-      <div className="flex flex-col gap-3">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
         <Input
           label="Username or email"
           variant="bordered"
           className="max-w-xs"
         />
         <InputPassword label="Password" />
-      </div>
 
-      <div className="flex flex-col gap-3">
         <div className="flex flex-row justify-end">
           <Button
             as={Link}
@@ -27,10 +44,15 @@ export const LoginPage = () => {
             Forgot Password?
           </Button>
         </div>
-        <Button color="primary" variant="solid" fullWidth>
+        <Button
+          isDisabled={isPending}
+          color="primary"
+          variant="solid"
+          fullWidth
+        >
           Login
         </Button>
-      </div>
+      </form>
 
       <div className="flex flex-row">
         <DividerWithChild>

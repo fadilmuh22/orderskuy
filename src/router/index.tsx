@@ -13,6 +13,8 @@ import { FoodsPage } from "@/pages/foods";
 import { FoodDetailPage } from "@/pages/foods/FoodDetail";
 import { NotificationsPage } from "@/pages/notifications";
 import { RewardsPage } from "@/pages/rewards";
+import { AuthGuard } from "@/components/auth/AuthGuard";
+import { AccountPage } from "@/pages/account";
 
 const routes = {
   home: {
@@ -34,6 +36,14 @@ const routes = {
   newPassword: {
     path: "/new-password",
     element: <NewPasswordPage />,
+  },
+  account: {
+    path: "/account",
+    element: (
+      <AuthGuard>
+        <AccountPage />
+      </AuthGuard>
+    ),
   },
   cart: {
     path: "/cart",

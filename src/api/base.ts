@@ -3,7 +3,7 @@ import axios from "axios";
 export const BASE_API_URL = import.meta.env.VITE_BASE_API_URL as string;
 
 const axiosClient = axios.create({
-  baseURL: BASE_API_URL,
+  baseURL: BASE_API_URL + "/api",
 });
 
 axiosClient.interceptors.request.use(function (config) {
@@ -24,7 +24,7 @@ export async function apiRequest<K, V = unknown>(
       data,
     });
 
-    return response.data as K;
+    return response.data.data as K;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       throw error.response?.data;

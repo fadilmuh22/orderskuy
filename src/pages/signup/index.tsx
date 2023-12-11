@@ -3,11 +3,30 @@ import { AuthGoogleButton } from "@/components/auth/AuthGoogleButton";
 import { AuthBaseCard } from "@/components/auth/AuthBaseCard";
 import { InputPassword } from "@/components/common/InputPassword";
 import { DividerWithChild } from "@/components/common/DividerWithChild";
+import { useForm } from "react-hook-form";
+import { RegisterPayload } from "@/api/types";
+import { useSignUp } from "@/api/auth";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export const SignUpPage = () => {
+  const navigate = useNavigate();
+  const { handleSubmit } = useForm<RegisterPayload>();
+
+  const { mutateAsync: signUp, isPending } = useSignUp({
+    onSuccess: () => {
+      toast.success("Sign up successfully!, please login");
+      navigate("/login");
+    },
+  });
+
+  const onSubmit = async (payload: RegisterPayload) => {
+    await signUp(payload);
+  };
+
   return (
     <AuthBaseCard title="Create New Account">
-      <div className="flex flex-col gap-3">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
         <Input label="Username" variant="bordered" className="max-w-xs" />
         <Input label="Email" variant="bordered" className="max-w-xs" />
         <InputPassword label="Password" />
@@ -17,13 +36,16 @@ export const SignUpPage = () => {
           variant="bordered"
           className="max-w-xs"
         />
-      </div>
 
-      <div className="flex flex-col gap-3">
-        <Button color="primary" variant="solid" fullWidth>
+        <Button
+          isDisabled={isPending}
+          color="primary"
+          variant="solid"
+          fullWidth
+        >
           Sign Up
         </Button>
-      </div>
+      </form>
 
       <div className="flex flex-row">
         <DividerWithChild>

@@ -1,3 +1,17 @@
+export interface ApiResponse<T> {
+  request_param: string;
+  status: string;
+  error_message: null;
+  data: T;
+  next: string;
+  version: Version;
+}
+
+export interface Version {
+  code: string;
+  name: string;
+}
+
 export type Food = {
   id: number;
   name: string;
@@ -14,6 +28,9 @@ export type Category = {
 
 export type User = {
   id: string;
+  phone: string;
+  username: string;
+  email: string;
 };
 
 export type Cart = {
@@ -29,11 +46,18 @@ export type LoginPayload = {
   password: string;
 };
 
+export type LoginResponse = {
+  user_id: string;
+  merchant_id: string;
+  token: string;
+};
+
 export type RegisterPayload = {
   username: string;
   email: string;
   password: string;
-  phoneNumber?: string;
+  password_confirmation: string;
+  phone_number?: string;
 };
 
 export const mockCategories: Category[] = [
