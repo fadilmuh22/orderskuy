@@ -1,9 +1,10 @@
 import { useCarts, useDeleteCart } from "@/api/cart";
-import { CartProduct } from "@/api/cart/types";
+import { CartProductDetail } from "@/api/cart/types";
 import { useOrderFromCart } from "@/api/orders";
 import { IconProvider } from "@/components/common/IconProvider";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { Table } from "@/components/common/Table";
+import { useTableNumber } from "@/providers/TableNumberProvider";
 import { Button, Card, Divider } from "@nextui-org/react";
 import { ColumnDef } from "@tanstack/react-table";
 import { FaRegTrashAlt } from "react-icons/fa";
@@ -13,7 +14,9 @@ import { toast } from "react-toastify";
 export const CartPage = () => {
   const navigate = useNavigate();
 
-  const { data: carts, isLoading: isCartLoading } = useCarts();
+  const { tableNumber } = useTableNumber();
+
+  const { data: cart, isLoading: isCartLoading } = useCarts();
   const { mutateAsync: orderFromCart, isPending: isOrderPending } =
     useOrderFromCart({
       onSuccess: (data) => {
@@ -28,11 +31,11 @@ export const CartPage = () => {
       },
     });
 
-  const columns: ColumnDef<CartProduct>[] = [
+  const columns: ColumnDef<CartProductDetail>[] = [
     {
       header: "Item",
       cell: ({ row }) => (
-        <p className="text-xs font-bold">{row.original.product?.name}</p>
+        <p className="text-xs font-bold">{row.original["product.name"]}</p>
       ),
     },
     {
@@ -41,12 +44,12 @@ export const CartPage = () => {
     },
     {
       header: "Pts",
-      accessorFn: (row) => row.product?.point,
+      accessorFn: (row) => row["product.point"],
     },
     {
       header: "Price",
       accessorFn: (row) =>
-        `Rp ${parseInt(row.product?.price ?? "0").toLocaleString()}`,
+        `Rp ${parseInt(row["product.price"] ?? "0").toLocaleString()}`,
     },
     {
       header: "Del",
@@ -73,46 +76,47 @@ export const CartPage = () => {
       <SectionHeader title="My" subtitle="Cart" />
 
       <div className="w-full overflow-hidden">
-        <Table<CartProduct> data={carts?.items ?? []} columns={columns} />
+        <Table<CartProductDetail>
+          data={cart?.details ?? []}
+          columns={columns}
+        />
       </div>
 
       {isCartLoading && <>Loading...</>}
 
-      {carts?.items.length !== 0 && (
+      {cart && (
         <Card className="flex flex-col gap-4 px-4 py-6 text-xs" shadow="sm">
           <div>
             <p className="font-bold">Pricing</p>
           </div>
           <div className="flex flex-row justify-between">
             <p>Total items</p>
-            <p>{carts?.items[0].qty}</p>
+            <p>{cart?.qty}</p>
           </div>
           <div className="flex flex-row justify-between">
             <p>Subtotal</p>
-            <p>
-              Rp {parseInt(carts?.items[0].subtotal ?? "0").toLocaleString()}
-            </p>
+            <p>Rp {cart?.subtotal.toLocaleString()}</p>
           </div>
           <div className="flex flex-row justify-between">
             <p>Tax</p>
-            <p>Rp {parseInt(carts?.items[0].tax ?? "0").toLocaleString()}</p>
+            <p>Rp {cart?.tax.toLocaleString()}</p>
           </div>
           <div className="flex flex-row justify-between">
             <p className="font-bold text-emerald-500">Total price</p>
-            <p>Rp {parseInt(carts?.items[0].total ?? "0").toLocaleString()}</p>
+            <p>Rp {cart.total.toLocaleString()}</p>
           </div>
           <Divider />
 
           <div className="flex flex-row justify-between">
             <p className="font-bold">Point(s) From Order</p>
-            <p>Rp {carts?.items[0].product?.point}</p>
+            <p>Rp {cart?.points}</p>
           </div>
 
           <Divider />
 
           <Button
             onClick={async () => {
-              await orderFromCart({ table_number: carts?.items[0].id ?? 0 });
+              await orderFromCart({ table_number: tableNumber });
             }}
             isLoading={isOrderPending}
             isDisabled={isCartLoading}

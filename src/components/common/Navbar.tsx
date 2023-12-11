@@ -93,7 +93,7 @@ export const Navbar = () => {
       </NavbarContent>
 
       <NavbarContent justify="end">
-        {tableNumber !== "" && (
+        {tableNumber !== 0 && (
           <Chip className="text-sm text-zinc-500">Table {tableNumber}</Chip>
         )}
         <NavbarMenuToggle

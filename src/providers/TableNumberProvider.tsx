@@ -8,9 +8,9 @@ import {
 } from "react";
 
 type TableNumberProps = {
-  tableNumber: string;
+  tableNumber: number;
   merchantId: string;
-  assignTable: (tableNumber: string, merchantId: string) => void;
+  assignTable: (tableNumber: number, merchantId: string) => void;
 };
 
 const TableNumberContext = createContext<TableNumberProps | undefined>(
@@ -29,10 +29,10 @@ export const useTableNumber = () => {
 export const TableNumberProvider: FunctionComponent<PropsWithChildren> = ({
   children,
 }) => {
-  const [tableNumber, setTableNumber] = useState("");
+  const [tableNumber, setTableNumber] = useState<number>(0);
   const [merchantId, setMerchantId] = useState("");
 
-  const assignTable = (tableNumber: string, merchantId: string) => {
+  const assignTable = (tableNumber: number, merchantId: string) => {
     setTableNumber(tableNumber);
     setMerchantId(merchantId);
   };
@@ -42,7 +42,7 @@ export const TableNumberProvider: FunctionComponent<PropsWithChildren> = ({
     const merchantId = localStorage.getItem("merchantId");
 
     if (tableNumber && merchantId) {
-      setTableNumber(tableNumber);
+      setTableNumber(parseInt(tableNumber));
       setMerchantId(merchantId);
     }
   }, []);

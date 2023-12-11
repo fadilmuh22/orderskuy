@@ -1,6 +1,13 @@
-import { Product } from "../products/types";
-
 export interface CartProduct {
+  qty: number;
+  subtotal: number;
+  tax: number;
+  total: number;
+  points: number;
+  details: CartProductDetail[];
+}
+
+export interface CartProductDetail {
   id: number;
   merchant_id: string;
   user_id: number;
@@ -12,7 +19,11 @@ export interface CartProduct {
   total: string;
   status: string;
   created_on: Date;
-  product: Product;
+  "product.name": string;
+  "product.image": string;
+  "product.price": string;
+  "product.point": number;
+  point: number;
 }
 
 export type DeleteCartPayload = {

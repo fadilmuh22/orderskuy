@@ -2,12 +2,11 @@ import {
   UseMutationOptions,
   UseQueryOptions,
   useMutation,
+  useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
 import { apiRequest } from "..";
 import { CartProduct, DeleteCartPayload } from "./types";
-import { PaginationBase, PaginationBaseParams } from "../pagination/types";
-import { usePagination } from "../pagination";
 
 const CartQueryKeys = {
   ALL: "cart",
@@ -15,11 +14,6 @@ const CartQueryKeys = {
 
 export const cartKeys = {
   all: [CartQueryKeys.ALL],
-  search: (params: PaginationBaseParams) => [
-    CartQueryKeys.ALL,
-    "search",
-    params,
-  ],
 };
 
 const BASE_URL = "/cart";
@@ -43,19 +37,11 @@ export const useDeleteCart = (
   });
 };
 
-export const useCarts = (
-  queryOptions?: UseQueryOptions<PaginationBase<CartProduct>>,
-  defaultParams?: PaginationBaseParams
-) => {
-  return usePagination<CartProduct, PaginationBaseParams>({
-    key: cartKeys.all,
-    apiFn: (params) =>
-      apiRequest<PaginationBase<CartProduct>>({
-        url: `${BASE_URL}/list`,
-        method: "get",
-        params,
-      }),
-    queryOptions,
-    defaultParams,
+export const useCarts = (queryOptions?: UseQueryOptions<CartProduct>) => {
+  return useQuery<CartProduct>({
+    queryKey: cartKeys.all,
+    queryFn: () =>
+      apiRequest<CartProduct>({ url: `${BASE_URL}/list`, method: "get" }),
+    ...queryOptions,
   });
 };

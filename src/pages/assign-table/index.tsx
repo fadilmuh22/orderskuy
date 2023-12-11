@@ -16,7 +16,7 @@ export const AssignTablePage = () => {
       localStorage.setItem("tableNumber", tableNumber);
       localStorage.setItem("merchantId", merchantId);
 
-      assignTable(tableNumber, merchantId);
+      assignTable(parseInt(tableNumber), merchantId);
 
       toast.success("Table assigned successfully");
 
