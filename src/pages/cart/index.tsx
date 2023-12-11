@@ -72,7 +72,7 @@ export const CartPage = () => {
     <div className="flex flex-col gap-6 p-4">
       <SectionHeader title="My" subtitle="Cart" />
 
-      <div className="sm:w-[100vw] overflow-hidden">
+      <div className="w-full overflow-hidden">
         <Table<CartProduct> data={carts?.items ?? []} columns={columns} />
       </div>
 

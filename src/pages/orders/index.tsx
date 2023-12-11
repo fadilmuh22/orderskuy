@@ -38,7 +38,7 @@ export const OrdersPage = () => {
     <div className="flex flex-col gap-6 p-4">
       <SectionHeader title="My" subtitle="Orders" />
 
-      <div className="sm:w-[100vw] overflow-hidden">
+      <div className="w-full overflow-hidden">
         {isOrdersLoading && <>Loading...</>}
         <Table<Transaction> data={orders?.items ?? []} columns={columns} />
       </div>

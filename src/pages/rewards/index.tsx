@@ -33,8 +33,8 @@ export const RewardsPage = () => {
           <Tab key="redeem" title="Redeem Points">
             <RewardGrid />
           </Tab>
-          <Tab key="leaderboard" title="Music">
-            <div className="sm:w-[100vw] overflow-hidden">
+          <Tab key="leaderboard" title="Leaderboard">
+            <div className="w-full overflow-hidden">
               {isOrdersLoading && <>Loading...</>}
               <Table<Transaction>
                 data={orders?.items ?? []}

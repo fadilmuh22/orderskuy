@@ -94,6 +94,7 @@ export const ProductDetailPage = () => {
           type="submit"
           color="success"
           variant="shadow"
+          className="text-white"
         >
           Add to Cart
         </Button>
