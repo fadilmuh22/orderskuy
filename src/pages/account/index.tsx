@@ -7,19 +7,24 @@ import {
 import { IconProvider } from "@/components/common/IconProvider";
 import { InputPassword } from "@/components/form/InputPassword";
 import { SectionHeader } from "@/components/common/SectionHeader";
-import { Button, Card, Divider, Input, Link } from "@nextui-org/react";
+import { Button, Card, Divider, Link } from "@nextui-org/react";
 import { FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
 import { FaChevronLeft, FaSignOutAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { InputText } from "@/components/form/InputText";
+import { useLogout } from "@/api/auth";
 
 export const AccountPage: FunctionComponent = () => {
   const { data: user, isLoading: isUserLoading } = useUser();
+  const { mutateAsync: logout, isPending: isLogoutPending } = useLogout();
 
-  const { handleSubmit: handleSubmitUser } = useForm<User>({
-    defaultValues: user,
-  });
-  const { handleSubmit: handleSubmitPassword } = useForm<UpdateUserPassword>();
+  const { handleSubmit: handleSubmitUser, control: controlFormUser } =
+    useForm<User>({
+      values: user,
+    });
+  const { handleSubmit: handleSubmitPassword, register: registerFormPassword } =
+    useForm<UpdateUserPassword>();
 
   const { mutateAsync: updateUser, isPending: isUpdateUserPending } =
     useUpdateUser({
@@ -78,19 +83,23 @@ export const AccountPage: FunctionComponent = () => {
           onSubmit={handleSubmitUser(onSubmitUpdateUser)}
           className="flex flex-col gap-3"
         >
-          <Input
+          <InputText
+            control={controlFormUser}
+            name="username"
             label="Username"
             variant="bordered"
             className="max-w-xs"
-            required
           />
-          <Input
+          <InputText
+            control={controlFormUser}
+            name="email"
             label="Email"
             variant="bordered"
             className="max-w-xs"
-            required
           />
-          <Input
+          <InputText
+            control={controlFormUser}
+            name="phone"
             label="Phone Number (optional)"
             variant="bordered"
             className="max-w-xs"
@@ -118,9 +127,20 @@ export const AccountPage: FunctionComponent = () => {
           className="flex flex-col gap-3"
           onSubmit={handleSubmitPassword(onSubmitUpdatePassword)}
         >
-          <InputPassword label="Password" required />
-          <InputPassword label="New Password" required />
-          <InputPassword label="Confirm Password" required />
+          <InputPassword
+            label="Password"
+            {...registerFormPassword("old_password", { required: true })}
+          />
+          <InputPassword
+            label="New Password"
+            {...registerFormPassword("new_password", { required: true })}
+          />
+          <InputPassword
+            label="Confirm Password"
+            {...registerFormPassword("new_password_confirmation", {
+              required: true,
+            })}
+          />
 
           <Button
             isDisabled={isUpdateUserPasswordPending || isUserLoading}
@@ -135,6 +155,10 @@ export const AccountPage: FunctionComponent = () => {
 
       <div className="flex flex-row justify-center">
         <Button
+          onClick={async () => {
+            await logout();
+          }}
+          isLoading={isLogoutPending}
           isDisabled={isUpdateUserPending || isUpdateUserPasswordPending}
           color="danger"
           variant="shadow"

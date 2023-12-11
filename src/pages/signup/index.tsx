@@ -18,6 +18,9 @@ export const SignUpPage = () => {
       toast.success("Sign up successfully!, please login");
       navigate("/login");
     },
+    onError: (error) => {
+      toast.error(error.error_message);
+    },
   });
 
   const onSubmit = async (payload: RegisterPayload) => {

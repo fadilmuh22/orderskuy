@@ -1,9 +1,10 @@
 import { Select, SelectItem, SelectProps } from "@nextui-org/react";
 import { FunctionComponent } from "react";
-import { Control, Controller, FieldValues } from "react-hook-form";
+import { Control, Controller } from "react-hook-form";
 
 type Props = SelectProps & {
-  control: Control<FieldValues>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  control: Control<any>;
   options: {
     label: string;
     value: string;

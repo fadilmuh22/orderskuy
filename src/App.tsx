@@ -5,6 +5,7 @@ import { ToastContainer } from "react-toastify";
 import { TableNumberProvider } from "./providers/TableNumberProvider";
 
 import "react-toastify/dist/ReactToastify.css";
+import { MobileLayout } from "./components/layout/MobileLayout";
 
 const queryClient = new QueryClient();
 
@@ -15,8 +16,10 @@ function App() {
     <NextUIProvider navigate={navigate}>
       <QueryClientProvider client={queryClient}>
         <TableNumberProvider>
-          <Outlet />
-          <ToastContainer />
+          <MobileLayout>
+            <Outlet />
+            <ToastContainer />
+          </MobileLayout>
         </TableNumberProvider>
       </QueryClientProvider>
     </NextUIProvider>

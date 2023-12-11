@@ -1,4 +1,5 @@
 import axios from "axios";
+import { ApiError } from "./types";
 
 export const BASE_API_URL = import.meta.env.VITE_BASE_API_URL as string;
 
@@ -48,7 +49,7 @@ export async function apiRequest<K, V = unknown>(props: ApiRequestProps<V>) {
         localStorage.removeItem("jwtToken");
         window.location.href = "#/login";
       }
-      throw error.response?.data;
+      throw error.response?.data as ApiError;
     }
     return Promise.reject(error);
   }

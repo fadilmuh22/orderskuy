@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import {
   FaBars,
   FaBell,
@@ -24,6 +24,7 @@ import { useAuth } from "@/api/auth";
 import { useTableNumber } from "@/providers/TableNumberProvider";
 
 export const Navbar = () => {
+  const navbarMenuPortalRef = useRef<HTMLDivElement>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const { data: auth, isLoading } = useAuth();
@@ -96,7 +97,6 @@ export const Navbar = () => {
           <Chip className="text-sm text-zinc-500">Table {tableNumber}</Chip>
         )}
         <NavbarMenuToggle
-          className="sm:hidden "
           icon={
             <IconProvider size="24">
               <FaBars />
@@ -105,7 +105,12 @@ export const Navbar = () => {
         />
       </NavbarContent>
 
-      <NavbarMenu>
+      <div id="navbarMenuPortal" ref={navbarMenuPortalRef}></div>
+
+      <NavbarMenu
+        className="bg-white"
+        portalContainer={navbarMenuPortalRef.current ?? undefined}
+      >
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
             <Button
