@@ -2,7 +2,9 @@ import { useOrders } from "@/api/orders";
 import { Transaction } from "@/api/orders/types";
 import { IconProvider } from "@/components/common/IconProvider";
 import { SectionHeader } from "@/components/common/SectionHeader";
+import { getTransactionStatusDetails } from "@/utils";
 import { Button, Card, Divider } from "@nextui-org/react";
+import classNames from "classnames";
 import { useMemo } from "react";
 import { FaSyncAlt } from "react-icons/fa";
 import { useParams } from "react-router-dom";
@@ -31,7 +33,7 @@ export const OrderDetailPage = () => {
       {isOrderLoading && <>Loading...</>}
 
       <div className="p-2 text-xs text-center rounded-lg bg-amber-50 text-amber-500">
-        Please don't leave this page until payment has been done.
+        {getTransactionStatusDetails(order?.status).head}
       </div>
 
       {order && (
@@ -61,7 +63,14 @@ export const OrderDetailPage = () => {
             <p className="font-bold">Info</p>
           </div>
           <div className="flex flex-row justify-between">
-            <p className="font-bold">Order Confirmation</p>
+            <p
+              className={classNames(
+                "font-bold",
+                getTransactionStatusDetails(order.status).color
+              )}
+            >
+              Order Confirmation
+            </p>
             <p className="capitalize">{order.status}</p>
           </div>
           <div className="flex flex-row justify-between">
@@ -72,8 +81,7 @@ export const OrderDetailPage = () => {
           <Divider />
 
           <div className="p-2 rounded-lg bg-zinc-100">
-            Please wait until the order has been confirmed. Make sure to refresh
-            the status.
+            {getTransactionStatusDetails(order?.status).head}
           </div>
 
           <Button

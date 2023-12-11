@@ -2,9 +2,9 @@ import { NextUIProvider } from "@nextui-org/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Outlet, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import { TableNumberProvider } from "./providers/TableNumberProvider";
 
 import "react-toastify/dist/ReactToastify.css";
-import { TableNumberProvider } from "./providers/TableNumberProvider";
 
 const queryClient = new QueryClient();
 

@@ -11,3 +11,10 @@ export interface Version {
   code: string;
   name: string;
 }
+
+export enum TransactionStatus {
+  WAITING = "waiting",
+  UNPAID = "unpaid",
+  PAID = "paid",
+  cancelled = "cancelled",
+}
