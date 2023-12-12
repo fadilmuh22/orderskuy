@@ -32,8 +32,8 @@ export const getTransactionStatusDetails = (
       };
     case TransactionStatus.cancelled:
       return {
-        head: "Order Success",
-        foot: "This order has been recorded. Have a good meal.",
+        head: "Order Cancelled",
+        foot: "Oder has been cancelled.",
         color: "text-zinc-500",
         bgColor: "bg-zinc-50",
       };
