@@ -33,7 +33,6 @@ export const LoginPage = () => {
         <Input
           label="Email or phone number"
           variant="bordered"
-          className="max-w-xs"
           {...register("phonemail", { required: true })}
         />
         <InputPassword

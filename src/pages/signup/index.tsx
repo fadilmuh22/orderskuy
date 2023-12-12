@@ -33,13 +33,11 @@ export const SignUpPage = () => {
         <Input
           label="Username"
           variant="bordered"
-          className="max-w-xs"
           {...register("username", { required: true })}
         />
         <Input
           label="Email"
           variant="bordered"
-          className="max-w-xs"
           {...register("email", { required: true })}
         />
         <InputPassword
@@ -53,7 +51,6 @@ export const SignUpPage = () => {
         <Input
           label="Phone Number (optional)"
           variant="bordered"
-          className="max-w-xs"
           {...register("phone", { required: true })}
         />
 

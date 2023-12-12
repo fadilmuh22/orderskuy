@@ -100,21 +100,18 @@ export const AccountPage: FunctionComponent = () => {
             name="username"
             label="Username"
             variant="bordered"
-            className="max-w-xs"
           />
           <InputText
             control={controlFormUser}
             name="email"
             label="Email"
             variant="bordered"
-            className="max-w-xs"
           />
           <InputText
             control={controlFormUser}
             name="phone"
             label="Phone Number (optional)"
             variant="bordered"
-            className="max-w-xs"
           />
 
           <Button

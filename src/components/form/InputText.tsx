@@ -18,7 +18,6 @@ export const InputText = forwardRef<HTMLInputElement, Props>((props, ref) => {
           ref={ref}
           variant="bordered"
           type="text"
-          className="max-w-xs"
           {...props}
           value={field.value}
           onChange={field.onChange}

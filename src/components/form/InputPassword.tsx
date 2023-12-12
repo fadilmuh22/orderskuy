@@ -24,7 +24,6 @@ export const InputPassword = forwardRef<HTMLInputElement, InputProps>(
           </button>
         }
         type={isVisible ? "text" : "password"}
-        className="max-w-xs"
         {...props}
       />
     );
