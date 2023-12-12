@@ -49,6 +49,13 @@ export async function apiRequest<K, V = unknown>(props: ApiRequestProps<V>) {
         localStorage.removeItem("jwtToken");
         window.location.href = "#/login";
       }
+      if (error.response?.status === 500) {
+        const errorData: ApiError = {
+          status: "error",
+          error_message: "Something went wrong",
+        };
+        throw errorData;
+      }
       throw error.response?.data as ApiError;
     }
     return Promise.reject(error);

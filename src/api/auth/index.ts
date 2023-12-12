@@ -10,6 +10,7 @@ import {
   LoginPayload,
   RegisterPayload,
   AuthResponse,
+  GoogleCallbackPayload,
 } from "./types";
 import { User } from "../users/types";
 import { ApiError } from "../types";
@@ -59,6 +60,28 @@ export const useLogout = (mutationOptions?: UseMutationOptions) => {
       });
     },
     ...mutationOptions,
+  });
+};
+
+export const useGoogleCallback = (
+  mutationOptions?: UseMutationOptions<
+    LoginResponse,
+    ApiError,
+    GoogleCallbackPayload
+  >
+) => {
+  return useMutation<LoginResponse, ApiError, GoogleCallbackPayload>({
+    mutationFn: (payload) =>
+      apiRequest<LoginResponse, GoogleCallbackPayload>({
+        url: `${BASE_URL}/google_callback`,
+        method: "post",
+        body: payload,
+      }),
+    ...mutationOptions,
+    onSuccess: (data, payload, params) => {
+      localStorage.setItem("jwtToken", data.token);
+      mutationOptions?.onSuccess?.(data, payload, params);
+    },
   });
 };
 

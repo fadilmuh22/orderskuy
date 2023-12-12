@@ -1,18 +1,32 @@
-import { Button, ButtonProps } from "@nextui-org/react";
 import { FunctionComponent } from "react";
-import { FcGoogle } from "react-icons/fc";
-import { IconProvider } from "../common/IconProvider";
+import { GoogleLogin } from "@react-oauth/google";
+import { useGoogleCallback } from "@/api/auth";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
-export const AuthGoogleButton: FunctionComponent<ButtonProps> = (props) => {
+export const AuthGoogleButton: FunctionComponent = () => {
+  const navigate = useNavigate();
+
+  const { mutateAsync: googleCallback } = useGoogleCallback({
+    onSuccess: () => {
+      toast.success("Login successfully!");
+      navigate("/");
+    },
+    onError: (error) => {
+      toast.error(error.error_message);
+    },
+  });
+
   return (
-    <Button
-      {...props}
-      isIconOnly
-      className="p-2 bg-white rounded-full shadow-lg"
-    >
-      <IconProvider>
-        <FcGoogle />
-      </IconProvider>
-    </Button>
+    <GoogleLogin
+      onSuccess={async (credentialResponse) => {
+        if (!credentialResponse.credential) return;
+        await googleCallback({ credential: credentialResponse.credential });
+      }}
+      shape="circle"
+      onError={() => {
+        toast.error("Google login failed");
+      }}
+    />
   );
 };

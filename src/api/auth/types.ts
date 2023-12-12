@@ -20,3 +20,7 @@ export type RegisterPayload = {
 export type AuthResponse = {
   isAuthenticated: boolean;
 };
+
+export type GoogleCallbackPayload = {
+  credential: string;
+};

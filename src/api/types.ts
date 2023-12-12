@@ -8,12 +8,12 @@ export interface ApiResponse<T> {
 }
 
 export interface ApiError {
-  request_param: string;
+  request_param?: string;
   status: string;
   error_message: string;
-  data: null;
-  next: string;
-  version: Version;
+  data?: null;
+  next?: string;
+  version?: Version;
 }
 
 export interface Version {

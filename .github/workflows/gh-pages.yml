@@ -28,6 +28,7 @@ jobs:
         uses: borales/actions-yarn@v4
         env:
           VITE_BASE_API_URL: ${{ vars.VITE_BASE_API_URL }}
+          VITE_GOOGLE_CLIENT_ID: ${{ vars.VITE_GOOGLE_CLIENT_ID }}
         with:
           cmd: build
 
