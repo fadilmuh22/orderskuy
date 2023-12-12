@@ -3,7 +3,7 @@ import { ProductToCartPayload } from "@/api/products/types";
 import { IconProvider } from "@/components/common/IconProvider";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { InputText } from "@/components/form/InputText";
-import { Button, Image, Link } from "@nextui-org/react";
+import { Button, CircularProgress, Image, Link } from "@nextui-org/react";
 import classNames from "classnames";
 import { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
@@ -74,7 +74,11 @@ export const ProductDetailPage = () => {
 
       <SectionHeader title="Food" subtitle="Detail" />
 
-      {isProductLoading && <>Loading...</>}
+      {isProductLoading && (
+        <div className="flex flex-row justify-center items-center">
+          <CircularProgress />
+        </div>
+      )}
 
       <Image
         src={product?.image}

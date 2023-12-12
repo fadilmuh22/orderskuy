@@ -2,7 +2,7 @@ import { useOrder } from "@/api/orders";
 import { IconProvider } from "@/components/common/IconProvider";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { getTransactionStatusDetails } from "@/utils";
-import { Button, Card, Divider } from "@nextui-org/react";
+import { Button, Card, CircularProgress, Divider } from "@nextui-org/react";
 import classNames from "classnames";
 import { FaSyncAlt } from "react-icons/fa";
 import { useParams } from "react-router-dom";
@@ -20,11 +20,15 @@ export const OrderDetailPage = () => {
     <div className="flex flex-col gap-6 p-4">
       <SectionHeader title="Order" subtitle="Details" />
 
-      {isOrderLoading && <>Loading...</>}
-
       <div className="p-2 text-xs text-center rounded-lg bg-amber-50 text-amber-500">
         {getTransactionStatusDetails(order?.status).head}
       </div>
+
+      {isOrderLoading && (
+        <div className="flex flex-row justify-center items-center">
+          <CircularProgress />
+        </div>
+      )}
 
       {order && (
         <Card className="flex flex-col gap-4 px-4 py-6 text-xs" shadow="sm">
