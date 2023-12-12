@@ -5,7 +5,7 @@ import { InputPassword } from "@/components/form/InputPassword";
 import { DividerWithChild } from "@/components/common/DividerWithChild";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useLogin } from "@/api/auth";
+import { useGoogleCallback, useLogin } from "@/api/auth";
 import { toast } from "react-toastify";
 import { LoginPayload } from "@/api/auth/types";
 
@@ -13,7 +13,7 @@ export const LoginPage = () => {
   const navigate = useNavigate();
   const { handleSubmit, register } = useForm<LoginPayload>();
 
-  const { mutateAsync: login, isPending } = useLogin({
+  const { mutateAsync: login, isPending: isLoginPending } = useLogin({
     onSuccess: () => {
       toast.success("Login successfully!");
       navigate("/");
@@ -22,6 +22,17 @@ export const LoginPage = () => {
       toast.error(error.error_message);
     },
   });
+
+  const { mutateAsync: googleCallback, isPending: isGoogleCallbackPending } =
+    useGoogleCallback({
+      onSuccess: () => {
+        toast.success("Login with Google successfully!");
+        navigate("/");
+      },
+      onError: (error) => {
+        toast.error(error.error_message);
+      },
+    });
 
   const onSubmit = async (payload: LoginPayload) => {
     await login(payload);
@@ -42,6 +53,7 @@ export const LoginPage = () => {
 
         <div className="flex flex-row justify-end">
           <Button
+            disabled={isLoginPending || isGoogleCallbackPending}
             as={Link}
             href="/forgot-password"
             color="primary"
@@ -51,7 +63,7 @@ export const LoginPage = () => {
           </Button>
         </div>
         <Button
-          isLoading={isPending}
+          isLoading={isLoginPending || isGoogleCallbackPending}
           color="primary"
           variant="solid"
           fullWidth
@@ -68,7 +80,9 @@ export const LoginPage = () => {
       </div>
 
       <div className="flex flex-row justify-center">
-        <AuthGoogleButton />
+        <AuthGoogleButton
+          googleCallback={(payload) => googleCallback(payload)}
+        />
       </div>
 
       <div></div>
@@ -77,7 +91,13 @@ export const LoginPage = () => {
       <div className="flex flex-row items-center justify-center ">
         <p>Don't Have Any Acoount?</p>
 
-        <Button as={Link} href="/signup" color="primary" variant="light">
+        <Button
+          disabled={isGoogleCallbackPending}
+          as={Link}
+          href="/signup"
+          color="primary"
+          variant="light"
+        >
           Sign Up
         </Button>
       </div>

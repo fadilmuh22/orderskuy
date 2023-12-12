@@ -1,22 +1,15 @@
 import { FunctionComponent } from "react";
 import { GoogleLogin } from "@react-oauth/google";
-import { useGoogleCallback } from "@/api/auth";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { GoogleCallbackPayload, LoginResponse } from "@/api/auth/types";
 
-export const AuthGoogleButton: FunctionComponent = () => {
-  const navigate = useNavigate();
+type Props = {
+  googleCallback: (payload: GoogleCallbackPayload) => Promise<LoginResponse>;
+};
 
-  const { mutateAsync: googleCallback } = useGoogleCallback({
-    onSuccess: () => {
-      toast.success("Login successfully!");
-      navigate("/");
-    },
-    onError: (error) => {
-      toast.error(error.error_message);
-    },
-  });
-
+export const AuthGoogleButton: FunctionComponent<Props> = ({
+  googleCallback,
+}) => {
   return (
     <GoogleLogin
       onSuccess={async (credentialResponse) => {
