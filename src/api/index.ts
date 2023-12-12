@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ApiError } from "./types";
+import { ApiError, ApiRequestProps, newApiError } from "./types";
 
 export const BASE_API_URL = import.meta.env.VITE_BASE_API_URL as string;
 
@@ -20,19 +20,6 @@ axiosClient.interceptors.request.use(function (config) {
   return config;
 });
 
-export type ApiRequestProps<V> =
-  | {
-      url: string;
-      method: "get";
-      params?: Record<string, unknown>;
-    }
-  | {
-      url: string;
-      method: "post" | "put" | "patch" | "delete";
-      body?: V;
-      params?: Record<string, unknown>;
-    };
-
 export async function apiRequest<K, V = unknown>(props: ApiRequestProps<V>) {
   try {
     const response = await axiosClient({
@@ -48,15 +35,10 @@ export async function apiRequest<K, V = unknown>(props: ApiRequestProps<V>) {
       if (error.response?.status === 401) {
         localStorage.removeItem("jwtToken");
         window.location.href = "#/login";
+
+        throw error.response?.data as ApiError;
       }
-      if (error.response?.status === 500) {
-        const errorData: ApiError = {
-          status: "error",
-          error_message: "Something went wrong",
-        };
-        throw errorData;
-      }
-      throw error.response?.data as ApiError;
+      throw newApiError("error", "Something went wrong");
     }
     return Promise.reject(error);
   }

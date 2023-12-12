@@ -20,3 +20,24 @@ export interface Version {
   code: string;
   name: string;
 }
+
+export const newApiError = (
+  status: string,
+  error_message: string
+): ApiError => ({
+  status,
+  error_message,
+});
+
+export type ApiRequestProps<V> =
+  | {
+      url: string;
+      method: "get";
+      params?: Record<string, unknown>;
+    }
+  | {
+      url: string;
+      method: "post" | "put" | "patch" | "delete";
+      body?: V;
+      params?: Record<string, unknown>;
+    };
