@@ -17,6 +17,7 @@ import {
 import { usePagination } from "../pagination";
 import { PaginationBase, PaginationBaseParams } from "../pagination/types";
 import { cartKeys } from "../cart";
+import { ApiError } from "../types";
 
 const ProductsQueryKeys = {
   ALL: "product",
@@ -78,12 +79,12 @@ export const useProduct = (
 export const useProductToCart = (
   mutationOptions?: UseMutationOptions<
     ProductToCartResponse,
-    unknown,
+    ApiError,
     ProductToCartPayload
   >
 ) => {
   const queryClient = useQueryClient();
-  return useMutation<ProductToCartResponse, unknown, ProductToCartPayload>({
+  return useMutation<ProductToCartResponse, ApiError, ProductToCartPayload>({
     mutationFn: (payload) =>
       apiRequest<ProductToCartResponse, ProductToCartPayload>({
         url: `${BASE_URL}/add_to_cart`,

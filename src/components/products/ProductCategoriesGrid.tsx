@@ -1,40 +1,44 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect } from "react";
 import { ProductGrid } from "./ProductGrid";
-import { Category } from "@/api/products/types";
 import { useCategoryProducts } from "@/api/products";
+import { ProductGridPlaceHolder } from "./ProductGridPlaceHolder";
 
 type Props = {
-  selectedCategories?: Category[];
+  search?: string;
+  selectedCategories?: string[];
 };
 
 export const FoodCategoriesGrid: FunctionComponent<Props> = ({
+  search,
   selectedCategories,
 }) => {
-  const { data: categoryProducts, isLoading } = useCategoryProducts(undefined, {
+  const {
+    data: categoryProducts,
+    isLoading,
+    setParams,
+  } = useCategoryProducts(undefined, {
     with_products: true,
   });
 
-  if (selectedCategories?.length === 0) {
-    return categoryProducts?.items.map((category, index) => (
-      <ProductGrid
-        key={index}
-        products={category.products ?? []}
-        categoryLabel={category.name}
-        isLoading={isLoading}
-      />
-    ));
-  }
+  useEffect(() => {
+    setParams({ id: selectedCategories?.join(","), search });
+  }, [search, selectedCategories, setParams]);
 
-  return categoryProducts?.items
-    ?.filter(
-      (category) => !selectedCategories?.find((c) => c.id === category.id)
-    )
-    .map((category, index) => (
-      <ProductGrid
-        key={index}
-        products={category.products ?? []}
-        categoryLabel={category.name}
+  return (
+    <>
+      {categoryProducts?.items.map((category) => (
+        <ProductGrid
+          key={category.id}
+          products={category.products ?? []}
+          categoryLabel={category.name}
+          isLoading={isLoading}
+        />
+      ))}
+      <ProductGridPlaceHolder
         isLoading={isLoading}
+        isEmpty={categoryProducts?.total_items === 0}
+        emptyMessage="No products found."
       />
-    ));
+    </>
+  );
 };

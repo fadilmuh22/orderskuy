@@ -2,25 +2,23 @@ import { Product } from "@/api/products/types";
 import { Button, Chip, Link } from "@nextui-org/react";
 import classNames from "classnames";
 import { FunctionComponent } from "react";
-import { useNavigate } from "react-router-dom";
 
 type Props = {
   product: Product;
 };
 
 export const ProductCard: FunctionComponent<Props> = ({ product }) => {
-  const navigate = useNavigate();
   return (
     <div
-      onClick={() => {
-        navigate("/products/" + product.id);
-      }}
       className={classNames(
         "pb-4",
         "cursor-pointer",
         "flex flex-col items-center justify-between",
         "bg-cover bg-center",
-        "relative rounded-xl max-w-full min-h-[240px]"
+        "relative rounded-xl max-w-full min-h-[240px]",
+        {
+          grayscale: product.stock === 0,
+        }
       )}
       style={{
         backgroundImage: `url('${product.image}')`,
@@ -49,7 +47,7 @@ export const ProductCard: FunctionComponent<Props> = ({ product }) => {
         className="text-white"
         variant="bordered"
       >
-        Order
+        Detail
       </Button>
     </div>
   );

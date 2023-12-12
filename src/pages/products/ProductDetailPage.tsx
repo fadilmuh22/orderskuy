@@ -2,7 +2,9 @@ import { useProduct, useProductToCart } from "@/api/products";
 import { ProductToCartPayload } from "@/api/products/types";
 import { IconProvider } from "@/components/common/IconProvider";
 import { SectionHeader } from "@/components/common/SectionHeader";
-import { Button, Image, Input, Link } from "@nextui-org/react";
+import { InputText } from "@/components/form/InputText";
+import { Button, Image, Link } from "@nextui-org/react";
+import classNames from "classnames";
 import { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { FaChevronLeft } from "react-icons/fa";
@@ -12,7 +14,11 @@ import { toast } from "react-toastify";
 export const ProductDetailPage = () => {
   const { id = "" } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { handleSubmit, register, reset } = useForm<ProductToCartPayload>();
+  const { handleSubmit, reset, control } = useForm<ProductToCartPayload>({
+    defaultValues: {
+      qty: 1,
+    },
+  });
 
   const { data: productData, isLoading: isProductLoading } = useProduct(id);
   const { mutateAsync: addToCart, isPending: isAddToCartPending } =
@@ -20,6 +26,9 @@ export const ProductDetailPage = () => {
       onSuccess: () => {
         toast.success("Product added to cart successfully");
         reset();
+      },
+      onError: (error) => {
+        toast.error(error.error_message);
       },
     });
 
@@ -67,7 +76,14 @@ export const ProductDetailPage = () => {
 
       {isProductLoading && <>Loading...</>}
 
-      <Image src={product?.image} width="100%" className="w-full h-[240px]" />
+      <Image
+        src={product?.image}
+        width="100%"
+        className={classNames("w-full h-[240px]", {
+          grayscale: product?.stock === 0,
+          "hover:grayscale-0": true,
+        })}
+      />
 
       <div className="flex flex-col gap-2">
         <p>Name: {product?.name}</p>
@@ -79,24 +95,28 @@ export const ProductDetailPage = () => {
         onSubmit={handleSubmit(onAddToCart)}
         className="flex flex-col gap-6"
       >
-        <Input
+        <InputText
+          control={control}
+          name="qty"
           label="Quantity"
           type="number"
-          {...register("qty", { required: true })}
         />
-        <Input
+        <InputText
+          control={control}
+          name="notes"
           label="Note"
           placeholder="Add your notes, e.g. Extra spicy"
-          {...register("notes")}
         />
+
         <Button
+          isDisabled={product?.stock === 0}
           isLoading={isAddToCartPending}
           type="submit"
           color="success"
           variant="shadow"
           className="text-white"
         >
-          Add to Cart
+          {product?.stock === 0 ? "Out of Stock" : "Add to Cart"}
         </Button>
       </form>
 

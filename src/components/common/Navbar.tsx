@@ -1,7 +1,6 @@
 import { useMemo, useRef, useState } from "react";
 import {
   FaBars,
-  FaBell,
   FaClipboardList,
   FaShoppingCart,
   FaTrophy,
@@ -52,12 +51,12 @@ export const Navbar = () => {
   const menuItems = useMemo(
     () => [
       authMenuItems,
-      {
-        link: "/notifications",
-        label: "Notifications",
-        icon: <FaBell />,
-        className: "fill-sky-500",
-      },
+      // {
+      //   link: "/notifications",
+      //   label: "Notifications",
+      //   icon: <FaBell />,
+      //   className: "fill-sky-500",
+      // },
       {
         link: "/rewards",
         label: "Rewards",

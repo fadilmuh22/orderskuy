@@ -14,12 +14,7 @@ type Props = {
 export const ProductGrid: FunctionComponent<Props> = ({
   products,
   categoryLabel,
-  isLoading,
 }) => {
-  if (isLoading) {
-    return <>Loading...</>;
-  }
-
   return (
     <div className="flex flex-col justify-center gap-6">
       <DividerWithChild>

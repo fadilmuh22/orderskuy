@@ -29,6 +29,7 @@ export type ProductPaginationParams = PaginationBaseParams;
 
 export type CategoryPaginationParams = PaginationBaseParams & {
   with_products?: boolean;
+  id?: string;
 };
 
 export type ProductToCartPayload = {

@@ -32,10 +32,15 @@ export async function apiRequest<K, V = unknown>(props: ApiRequestProps<V>) {
     return response.data.data as K;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      if (error.response?.status === 401) {
-        localStorage.removeItem("jwtToken");
-        window.location.href = "#/login";
-
+      if (
+        error.response?.status &&
+        error.response?.status >= 400 &&
+        error.response?.status < 500
+      ) {
+        if (error.response?.status === 401) {
+          localStorage.removeItem("jwtToken");
+          window.location.href = "#/login";
+        }
         throw error.response?.data as ApiError;
       }
       throw newApiError("error", "Something went wrong");
