@@ -30,6 +30,6 @@ export const usePagination = <Data, Params>(
   return {
     ...searchQuery,
     setParams: (params: PaginationParams<Params>) =>
-      setParams({ ...params, ...props.defaultParams }),
+      setParams((prev) => ({ ...prev, ...params, ...props.defaultParams })),
   };
 };

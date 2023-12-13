@@ -7,7 +7,13 @@ import {
 import { IconProvider } from "@/components/common/IconProvider";
 import { InputPassword } from "@/components/form/InputPassword";
 import { SectionHeader } from "@/components/common/SectionHeader";
-import { Button, Card, Divider, Link } from "@nextui-org/react";
+import {
+  Button,
+  Card,
+  CircularProgress,
+  Divider,
+  Link,
+} from "@nextui-org/react";
 import { FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
 import { FaChevronLeft, FaSignOutAlt } from "react-icons/fa";
@@ -81,7 +87,11 @@ export const AccountPage: FunctionComponent = () => {
 
       <SectionHeader title="My" subtitle="Account" />
 
-      {isUserLoading && <p>Loading...</p>}
+      {isUserLoading && (
+        <div className="flex flex-row justify-center items-center">
+          <CircularProgress />
+        </div>
+      )}
 
       <Card className="flex flex-col gap-4 px-4 py-6">
         <div className="flex flex-col gap-2">
